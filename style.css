@@ -16,7 +16,7 @@ body {
 
 .wrapper {
     position: relative;
-    background: url(https://source.unsplash.com/vZlTg_McCDo/1920x1080) no-repeat center center/cover;
+    background: url(background-img.jpg) no-repeat center center/cover;
 }
 .wrapper:before {
     content: "";
@@ -42,6 +42,7 @@ footer {
 header {
     top: 0;
     text-align: center;
+    margin-top: 25px;
 }
 
 .header__logo {
@@ -56,9 +57,16 @@ header {
     color: #fff;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    padding: 25px 10px;
+    background: #242a2b52;
+    border-radius: 8px;
 }
 .content h1 {
     margin-top: 0;
+}
+
+.content p {
+    margin-bottom: 0;
 }
 .content form {
     margin: auto;
@@ -151,4 +159,24 @@ footer {
 .footer__links .fa {
     vertical-align: middle;
     font-size: 21px;
+}
+
+@media screen and (max-width: 767px) {
+    .content {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .countdown {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .countdown > div {
+        width: 50%;
+    }
+
+    .content h1 {
+        font-size: 28px;
+    }
 }
