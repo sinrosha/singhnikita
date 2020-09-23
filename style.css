@@ -167,6 +167,10 @@ footer {
         margin: 0 auto;
     }
 
+    .wrapper {
+        background-position: 90%;
+    }
+
     .countdown {
         display: flex;
         flex-wrap: wrap;
