@@ -1,0 +1,949 @@
+<script type="text/javascript">
+    function scroll_to(){
+        var name = $(this).attr('href').substr(1);
+        var pos = $('a[name='+name+']').offset();
+        $('body').animate({ scrollTop: pos.top },5000);
+        e.preventDefault();
+    }
+  
+    function showModal(id){
+  
+        if(id==undefined){
+            modalID = 'modal_div';
+        }else{
+            modalID = id;
+        }
+  
+        $("#body-wrapper").append($("#"+modalID));
+        $("#"+modalID).show();
+        $("select").not('#'+modalID+' select').hide();
+        modalWidth = $(document).width();
+        modalHeight = $(document).height();
+        $(".modal_overlay").css('width', modalWidth);
+        $(".modal_overlay").css('height', modalHeight);
+        $(document).scrollTo($("body"),75,null);
+    }
+    function closeModal(id){
+  
+        if(id==undefined){
+            modalID = 'modal_div';
+        }else{
+            modalID = id;
+        }
+  
+        $('#'+modalID).css('display','none');
+        $("select").show();
+  
+    }
+    function show_image_carousal(id) {
+        showModal(id);
+        var modalW = parseInt($('#' + id + ' .modal_content').css('width'));
+        var windowW = $(window).width();
+        var modalPosX = (windowW - modalW) / 2;
+        $('#' + id + ' .modal_content').css('left', modalPosX);
+        $(window).scrollTop(0);
+    }
+  </script>
+  <div id="body-wrapper">
+  <div id="page-wrapper">
+  <div id="content-wrapper">
+  <style type="text/css">
+  #interstitial-wrapper{
+    /*font-family:Roboto;*/
+    font-family:Arial;
+    width:950px;
+    margin:0 auto;
+    color:#484747;
+  }
+  .features {
+    float: left;
+    height: 325px !important;
+    padding: 32px 0 0;
+    position: relative;
+    width: 950px;
+  }
+  .features .lfloat {
+    display: inline;
+  }
+  .features h1{
+    font-size: 33px;
+    padding: 0;
+    font-weight: bold;
+    /*font-family:Roboto;*/
+    font-family:Arial;
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  #interstitial-wrapper.US .features h1, #interstitial-wrapper .features h1.US{
+    display: none;
+  }
+  #interstitial-wrapper.US .features h1.US {
+    display: block;
+  }
+  .features h1 span{
+    float:left;
+    font-size:18px;
+    color:#bbbebe;
+    margin-top:3px;
+    font-weight:normal;
+  }
+  .features .key-features {
+    border-bottom: 1px solid #C8C8C8;
+    color: #444444;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 0 0 5px;
+  }
+  .features div.lfloat ul{
+    font-size: 14px;
+    margin: 0px 0 0 15px;
+    padding-left: 10px;
+    width: 605px;
+  }
+  .features div.lfloat ul li {
+    list-style-image: url("/getImage.php?src=pointers_arrow_head.gif");
+    margin: 8px 0;
+    font-size:16px;
+  }
+  #interstitial-wrapper.US .features div.lfloat ul li.IN{
+    display: none;
+  }
+  .features .lfloat.intro-image.vps-hosting-IN{
+    background: url("/getImage.php?src=interstitial-hosting-banner-img.png") no-repeat scroll 0px 0px transparent;
+  }
+  #interstitial-wrapper.US .features .lfloat.intro-image.vps-hosting-IN{
+    background: url("/getImage.php?src=myUploadedImages/interstitialhostingbannerimgus.png") no-repeat scroll 0 0 transparent;
+  }
+  .features .lfloat.intro-image {
+    height: 190px;
+    width: 314px;
+  }
+  .orange {
+    color: #FA7109;
+  }
+  .interstitial-intro{
+    overflow: hidden;
+    padding: 0 0 20px;
+  }
+  #interstitial-support-contact .IN{
+    display: inline;
+  }
+  #interstitial-support-contact .US, #interstitial-wrapper.US #interstitial-support-contact .IN{
+    display: none;
+  }
+  #interstitial-wrapper.US #interstitial-support-contact .US{
+    display: inline;
+  }
+  #feature-icons {
+    height: 70px;
+    margin: 15px 0 60px;
+    padding: 0;
+    width: 100%;
+    border:1px solid #BFBFBF;
+    border-right:none;
+    border-left:none;
+    position:relative;
+    background:url("/getImage.php?src=interstitial-hosting-includes.png") no-repeat scroll 0px 50% transparent;
+  }
+  #feature-icons p{
+    position:absolute;
+    top:-15px;
+    left:400px;
+    padding:5px 20px;
+    margin:0px;
+    font-size:15px;
+    color:#373737;
+    background:#fff;
+  }
+  #feature-icons ul {
+    font-size: 14px;
+    margin: 0;
+    padding-left: 0px;
+    width:950px;
+  }
+  #feature-icons li {
+    float: left;
+    height: 70px;
+    text-indent: -9999px;
+    width: 135px;
+    margin:0;
+    border:none;
+    list-style-image: none;
+  }
+  #uptime-query{
+    width:14px;
+    display: inline-block;
+    height: 17px;
+    margin:0px 0 0 5px;
+    text-indent: -9999px;
+    background: url("/getImage.php?src=uptime-query.png") no-repeat scroll 0px 2px transparent;
+  }
+  #interstitial-main-features ul{
+    width:960px;
+    overflow:hidden;
+  }
+  #interstitial-main-features ul li{
+    float:left;
+    margin:0 18px 60px 0;
+    text-align:center;
+    color:#484747;
+  }
+  #interstitial-main-features ul li h3{
+    font-size:20px;
+    padding:0px;
+    margin-top:5px;
+    font-weight:normal;
+  }
+  #interstitial-main-features ul li div p{
+    font-size:14px;
+    padding:0px;
+    text-align:center;
+    line-height:1.6;
+  }
+  #interstitial-main-features ul li a{
+    text-decoration:underline;
+    font-size:15px;
+    color:#0f64ba;
+  }
+  #interstitial-main-features ul li.ecommerce-compatible{
+    margin-left: 140px;
+  }
+  #interstitial-support-contact{
+    margin:40px 0 0 20px;
+    padding:21px 25px;
+    color:#484747;
+    font-size:16px;
+    overflow:hidden;
+    background: url("/getImage.php?src=interstitial-support-contact-bg.png") no-repeat scroll 0 0 transparent;
+  }
+  #interstitial-support-contact .vps-phone{
+    width:42px;
+    height:42px;
+    text-indent:-9999px;
+    display:inline-block;
+    margin:-10px 13px 0 5px;
+    background: url("/getImage.php?src=vps-contact-phone.png") no-repeat scroll 0 0 transparent;
+  }
+  #interstitial-support-contact .vps-chat{
+    width:42px;
+    height:42px;
+    margin:-10px 13px 0 5px;
+    text-indent:-9999px;
+    display:inline-block;
+    background: url("/getImage.php?src=vps-contact-chat.png") no-repeat scroll 0 0 transparent;
+  }
+  #interstitial-support-contact span{
+    float:left;
+    margin-right:5px;
+  }
+  #interstitial-support-contact em{
+    float:left;
+    margin-right:5px;
+    font-weight:normal;
+  }
+  #interstitial-support-contact span.need-help{
+    font-weight:700;
+    font-size:20px;
+  }
+  #interstitial-support-contact a em{
+    text-decoration:underline;
+  }
+  #interstitial-main-features{
+    padding-top:20px;
+  }
+  #interstitial-main-features h2{
+    text-indent:-9999px;
+    height:25px;
+    margin:20px 0 35px;
+    background:url("/getImage.php?src=main-features-heading.png") no-repeat scroll 50% 0 transparent;
+  }
+  #interstitial-choose-between h2{
+    text-indent:-9999px;
+    height:25px;
+    margin:20px 0 35px;
+    background:url("/getImage.php?src=hosting-choosebetween-heading.png") no-repeat scroll 50% 0 transparent;
+  }
+  .modal_content .close {
+    background: url("/getImage.php?src=vps-modal-close.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 32px;
+    margin: 10px 0;
+    position: absolute;
+    right: -15px;
+    text-indent: -99999px;
+    top: -20px;
+    width: 32px;
+  }
+  .modal_content {
+    /*font-family:Roboto;*/
+    font-family:Arial;
+  }
+  .interstitial_content {
+    padding: 35px 20px 70px 114px;
+    margin-left:-70px;
+    width:790px;
+  }
+  .form-field-wrapper select{
+    vertical-align: middle;
+  }
+  .modal_content h2 {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #EEEEEE;
+    color: #373737;
+    font-size: 43px;
+    font-weight: normal;
+    letter-spacing: -2px;
+    margin: 0 0 20px 0px;
+    padding: 0;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .modal_content h3 {
+    color: #373737;
+    font-size: 17px;
+    font-weight: normal;
+    padding: 25px 0 15px 60px;
+    text-align: left;
+  }
+  .modal_content p {
+    color: #484747;
+    font-size: 16px;
+    line-height: 1.5;
+                            /*margin: 0 0 8px 100px;*/
+    padding: 0;
+    text-align: left;
+  }
+  .modal_content ul li {
+    color: #484747;
+    font-size: 16px;
+    list-style-image: url("/getImage.php?src=pointers_grey_arrow.png");
+    margin: 8px 0;
+    text-align: left;
+  }
+  .modal_content .section{
+    float:left;
+    width:370px;
+  }
+  .modal_content .section ul{
+    padding-left:60px;
+  }
+  #programming-dialog .modal_content{background:url("/getImage.php?src=programming-icon-small.png") no-repeat scroll 10px 10px #fff;}
+  #database-dialog .modal_content{background:url("/getImage.php?src=database-icon-small.png") no-repeat scroll 10px 10px #fff;}
+  #domainnemail-dialog .modal_content{background:url("/getImage.php?src=domainnemail-icon-small.png") no-repeat scroll 10px 10px #fff;}
+  #includeapp-dialog .modal_content{background:url("/getImage.php?src=includeapp-icon-small.png") no-repeat scroll 10px 10px #fff;}
+  #support-dialog .modal_content{background:url("/getImage.php?src=support-icon-small.png") no-repeat scroll 10px 10px #fff;}
+  
+  .modal_content h3.linux{background:url("/getImage.php?src=linux-dialog.png") no-repeat scroll 5px 5% #fff;}
+  .modal_content h3.windows{background:url("/getImage.php?src=windows-dialog.png") no-repeat scroll 5px 5% #fff;}
+  .modal_content h3.linuxwindows{background:url("/getImage.php?src=linuxwindows-dialog.png") no-repeat scroll 5px 50% #fff;}
+  
+  #choose-between-wrap{
+    width:950px;
+    overflow:hidden;
+    font-size:16px;
+    color:#303030;
+    text-align:center;
+  }
+  #choose-between-wrap h3{
+    text-indent:-9999px;
+    height:70px;
+  }
+  #choose-between-wrap #separator{
+    float:left;
+    width:45px;
+    height:442px;
+    margin:0 25px;
+    text-indent:-9999px;
+    background:url("/getImage.php?src=choose-between-separator.png") no-repeat scroll 0 0 transparent;
+  }
+  #linux-advanced-plan{
+    float:left;
+    width:415px;
+    height:488px;
+    display:block;
+    background:url("/getImage.php?src=linux-advanced-plan.png") no-repeat scroll 0 0 transparent;
+  }
+  #linux-advanced-plan form{
+    width: 400px;
+  }
+  #windows-premium-plan{
+    float:left;
+    width:400px;
+    height:488px;
+    display:block;
+    padding-left:24px;
+    background:url("/getImage.php?src=windows-premium-plan.png") no-repeat scroll 0 0 transparent;
+  }
+  .text {
+    margin-left: 100px;
+    margin-top: 10px;
+    position: relative;
+    color:#fff;
+    font-family: arial;
+    height:59px;
+  }
+  #windows-premium-plan .text{
+    margin-left: 130px;
+  }
+  .text span {
+    font-weight: bold;
+    position: absolute;
+  }
+  .text .from {
+    font-size: 11px;
+    font-weight: bold;
+    left: -45px;
+    line-height: 12px;
+    top: 7px;
+  }
+  .text .rs {
+    font-size: 22px;
+    left: 15px;
+    line-height: 30px;
+    top: 25px;
+    height:20px;
+    width:14px;
+    text-indent:-99999px;
+    background:url("/getImage.php?src=ruppee-sym.png") no-repeat scroll 0 0 transparent;
+  }
+  #interstitial-wrapper.US .text .rs{
+    background: none;
+    line-height: 20px;
+    text-indent: -26px;
+  }
+  .text .price {
+    font-size: 55px;
+    left: 35px;
+    top: -7px;
+  }
+  .text .sign {
+    font-size: 24px;
+    font-weight: normal;
+    left: 97px;
+    line-height: 48px;
+    top: 8px;
+  }
+  .text .per-month {
+    font-size: 13px;
+    position: relative;
+  }
+  /* #interstitial-wrapper.US .text .per-month {
+    left: 142px;
+  } */
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    #interstitial-wrapper.US .text .rs {
+        text-indent: -32px;
+    }
+  }
+  .text .per-month span {
+    font-size: 17px;
+    position: static;
+  }
+  .ul-sign-bullet{
+    margin: 20px 0 0 90px;
+    width: 250px;
+    height:136px;
+  }
+  .ul-sign-bullet li{
+    font-size:16px;
+    text-align:left;
+    background:url("/getImage.php?src=hosting-bullet.png") no-repeat scroll left 5px transparent;
+  }
+  .select-duration{
+    margin:15px 0 0;
+    height:36px;
+    width: 400px;
+  }
+  .select-duration select{
+    margin:0 0 0 2px;
+    width:226px;
+  }
+  .select-duration select option{
+    width:200px;
+  }
+  .ui-button{
+    margin:20px 0 10px;
+  }
+  .view-all{
+    color:#0f64ba;
+    font-size:14px;
+    text-decoration:underline;
+  }
+  </style>
+  <div id="interstitial-wrapper">
+  <div class="interstitial-intro">
+        <div class="promo-collats text-center ">
+            
+                <img src="https://www.bigrock.in/ui/resellerdata/240000_269999/247133/bigrock.in/bigrock/themes/ClassicBlue-MyTheme/images/myUploadedImages/eoy_pt_2018.png" usemap="#Map" style="width:100%;max-width: 100%;margin-top:30px; image-rendering: -moz-crisp-edges;image-rendering: -o-crisp-edges;image-rendering: -webkit-optimize-contrast;">
+            
+        </div>
+    <div class="features">
+        <h1>GET WEB HOSTING FROM <em class="orange">INDIA'S #1 HOSTING COMPANY</em></h1>
+        <h1 class="US">ROCK SOLID <em class="orange">WEB HOSTING</em></h1>
+        <div class="lfloat">
+            <span class="key-features">Key Features:</span>
+            <ul>
+                <li><b>Host a domain</b> with free emails</li>
+                <li><b>99.9% uptime</b> with dedicated <b>24/7</b> technical support</li>
+                <li><b>Fully equipped</b> with cPanel (<a href="/content.php?action=demo&type=lhbus">Demo</a>) /  Plesk (<a href="/content.php?action=demo&type=w2kus">Demo</a>) Control</li>
+                <!--<li class="IN"><b>Rs. 2000*</b> Google AdWords Credit</li>-->
+                <li><b>30 Day</b> Money Back Guarantee</li>
+                <li><a href="#interstitial-main-features" onclick="scroll_to">Learn more</a></li>
+            </ul>
+        </div>
+        <div class="lfloat intro-image vps-hosting-IN"></div>
+        <div class="clear"></div>
+        <div id="feature-icons">
+            <p>INCLUDES</p>
+            <ul>
+                <li>cPanel</li>
+                <li>Fantastico</li>
+                <li>MySQL</li>
+                <li>Perl</li>
+                <li>php</li>
+                <li>Microsoft .NET</li>
+                <li>swsoft PLESK</li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  
+  <#include:products/common/social_widget.html /#>
+  
+  <div id="interstitial-choose-between">
+    <h2 >CHOOSE BETWEEN</h2>
+    <div id="choose-between-wrap">
+        <div id="linux-advanced-plan">
+            <h3>LINUX ADVANCED PLAN</h3>
+            <div class="text">
+                <span class="from">STARTS FROM</span>
+                <span class="rs"><#tag:curr_sym /#></span>
+                <span class="price"><#tag:linux_price /#><span class="per-month"><span>/</span>Month</span> </span>
+            </div>
+            <ul class="ul-sign-bullet">
+                <li>Single Domain</li>
+                <li>Unmetered Space</li>
+                <li>Unmetered Transfer</li>
+                <li>Unlimited Emails <span></span></li>
+            </ul>
+                <div class="select-duration">
+                    <span>Select Duration:</span>
+                    <select name="duration" id="linux_duration">
+                        <#loop:linux_plans#>
+                            <option value="<#tag:linux_plans[].duration /#>" <#tag:linux_plans[].selected /#> >
+                            <#tag:linux_plans[].display_duration /#> <#tag:linux_plans[].display_year /#> at <#tag:curr_sym /#> <#tag:linux_plans[].monthly_price /#>/month
+                                </option>
+                                <#/loop:linux_plans#>
+                    </select>
+                </div>
+                <form name="linux_hostingplan" id="hostingplan_<#tag:linux_planid /#>" method="POST">
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="type" id="type_id" value="linux">
+                <input type="hidden" name="location" value="us">
+                  <input type="hidden" name="duration" value="">
+                <input type="hidden" id="linux_plan_id" name="planid" value="<#tag:linux_planid /#>">
+                <input type="hidden" name="domain_name" value="">
+                  <input type="hidden" name="from_landing_page" value="true">
+                <input type=hidden name="otherdomain" value="<#tag:otherdomain /#>">
+                <a onclick="populate_and_show_modal('linux');" href="#" class="ui-button"> <span><span>Buy This Plan</span></span> </a><br/>
+            </form>
+            <a href="/web-hosting/linux-hosting.php" class="view-all">View all Plans</a>
+        </div>
+        <span id="separator" >OR</span>
+        <div id="windows-premium-plan">
+            <h3>WINDOWS PREMIUM PLAN</h3>
+            <div class="text">
+                <span class="from">STARTS FROM</span>
+                <span class="rs"><#tag:curr_sym /#></span>
+                <span class="price"><#tag:windows_price /#><span class="per-month"><span>/</span>Month</span></span>
+            </div>
+            <ul class="ul-sign-bullet">
+                <li>Single Domain</li>
+                <li>Unmetered Space</li>
+                <li>Unmetered Transfer</li>
+                <li>Unlimited Emails<span></span></li>
+            </ul>
+                <div class="select-duration">
+                    <span>Select Duration:</span>
+                    <select name="duration" id="w2k_duration">
+                        <#loop:windows_plans#>
+                            <option value="<#tag:windows_plans[].duration /#>" <#tag:windows_plans[].selected /#> >
+                            <#tag:windows_plans[].display_duration /#> <#tag:windows_plans[].display_year /#> at <#tag:curr_sym /#> <#tag:windows_plans[].monthly_price /#>/month
+                                </option>
+                                <#/loop:windows_plans#>
+                    </select>
+                </div>
+                <form name="w2k_hostingplan" id="hostingplan_<#tag:windows_planid /#>" method="POST">
+                <input type="hidden" name="action" value="add">
+                  <input type="hidden" name="type" id="type_id" value="w2k">
+                <input type="hidden" name="location" value="us">
+                  <input type="hidden" name="duration" value="">
+                <input type="hidden" name="domain_name" value="">
+                <input type=hidden name="otherdomain" value="<#tag:otherdomain /#>">
+                  <input type="hidden" id="w2k_plan_id" name="planid" value="<#tag:windows_planid /#>">
+                  <input type="hidden" name="from_landing_page" value="true">
+                  <a onclick="populate_and_show_modal('w2k');" href="#" class="ui-button"> <span><span>Buy This Plan</span></span> </a><br/>
+            </form>
+            <a href="/web-hosting/windows-hosting.php" class="view-all">View all Plans</a>
+        </div>
+    </div>
+  </div>
+  
+  <div id="interstitial-support-contact">
+    <span class="need-help">NEED HELP?</span>
+    <span class="vps-phone">Call</span>
+    <span>Call us at </span>
+                        <span class="IN">
+                            <em class="orange">1800-200-7625</em>
+                            <span> or </span>
+                            <em class="orange">91-22-67209001</em>
+                        </span>
+                        <span class="US">
+                            <em class="orange">1-888-924-4762</em>
+                        </span>
+    <span class="vps-chat">Chat</span>
+    <span> Chat with our </span>
+    <a href="#" class="sf-chat"><em class="orange">Hosting Specialists</em></a>
+  </div>
+  
+  <div id="interstitial-main-features">
+    <h2>MAIN FEATURES</h2>
+    <ul>
+        <li>
+            <a onclick="javascript:show_image_carousal('programming-dialog'); return false;" href="#"><img src="/getImage.php?src=programming-icon.png" alt="PROGRAMMING LANGUAGES"/></a>
+            <h3>PROGRAMMING LANGUAGES</h3>
+            <div>
+                <p>PHP<br/>
+                    ASP.NET<br/>
+                    Python and more</p>
+            </div>
+            <a onclick="javascript:show_image_carousal('programming-dialog'); return false;" href="#">Learn More >></a>
+        </li>
+        <li>
+            <a onclick="javascript:show_image_carousal('database-dialog'); return false;" href="#"><img src="/getImage.php?src=database-icon.png" alt="DATABASES & INFRASTRUCTURE"/></a>
+            <h3>DATABASES & INFRASTRUCTURE</h3>
+            <div>
+                <p>Dual Quad Core Xeon Processors<br/>
+                    MySQL/MSSQL/Access Databases</p>
+            </div>
+            <a onclick="javascript:show_image_carousal('database-dialog'); return false;" href="#">Learn More >></a>
+        </li>
+        <li style="margin-right:0px;">
+            <a onclick="javascript:show_image_carousal('domainnemail-dialog'); return false;" href="#"><img src="/getImage.php?src=domainnemail-icon.png" alt="DOMAINS & EMAIL"/></a>
+            <h3>DOMAINS & EMAIL</h3>
+            <div>
+                <p>Single Domain Hosting<br/>
+                    Free DNS Management and Domain Forwarding<br/>
+                    Email Compatible on multiple mobile platforms</p>
+            </div>
+            <a onclick="javascript:show_image_carousal('domainnemail-dialog'); return false;" href="#">Learn More >></a>
+        </li>
+        <li class="ecommerce-compatible">
+            <a onclick="javascript:show_image_carousal('includeapp-dialog'); return false;" href="#"><img src="/getImage.php?src=includeapp-icon.png" alt="INCLUDED APPS & OTHER FEATURES"/></a>
+            <h3>INCLUDED APPS & OTHER FEATURES</h3>
+            <div>
+                <p>cPanel (<a href="/content.php?action=demo&type=lhbus">demo</a>) / Plesk Panel (<a href="/content.php?action=demo&type=w2kus">demo</a>)<br/>
+                    Blogs - WordPress, b2evolution<br/>
+                    Shopping Carts - osCommerce, CubeCart</p>
+            </div>
+            <a onclick="javascript:show_image_carousal('includeapp-dialog'); return false;" href="#">Learn More >></a>
+        </li>
+        <li>
+            <a onclick="javascript:show_image_carousal('support-dialog'); return false;" href="#"><img src="/getImage.php?src=support-icon.png" alt="GREAT SUPPORT"/></a>
+            <h3>GREAT SUPPORT</h3>
+            <div>
+                <p>Fully Qualified Technical Support<br/>
+                    24/7 Live Chat/Phone/Email<br/>
+                    24/7 Monitoring</p>
+            </div>
+            <a onclick="javascript:show_image_carousal('support-dialog'); return false;" href="#">Learn More >></a>
+        </li>
+    </ul>
+  </div>
+  <!--modals -->
+  <div style="display: none;" class="modal-wrapper-ssl" id="programming-dialog">
+    <div class="modal_overlay" style="width: 1591px; height: 3945px;"></div>
+    <div class="modal_content interstitial_content">
+        <div class="mid-section">
+            <div class="display-wrapper">
+                <h2>PROGRAMMING LANGUAGES</h2>
+                <div class="section">
+                    <h3 class="linux">LINUX</h3>
+                    <ul>
+                        <li>PHP v5</li>
+                        <li>Perl</li>
+                        <li>Python</li>
+                        <li>CGI</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3 class="windows">WINDOWS</h3>
+                    <ul>
+                        <li>PHP v5</li>
+                        <li>ASP</li>
+                        <li>ASP.NET v3.5</li>
+                    </ul>
+                </div>
+            </div>
+            <span onclick="closeModal('programming-dialog')" class="close">close</span>
+        </div>
+    </div>
+  </div>
+  
+  <div style="display: none;" class="modal-wrapper-ssl" id="database-dialog">
+    <div class="modal_overlay" style="width: 1591px; height: 3945px;"></div>
+    <div class="modal_content interstitial_content">
+        <div class="mid-section">
+            <div class="display-wrapper">
+                <h2>DATABASE & INFRASTRUCTURE</h2>
+                <div class="section">
+                    <h3 class="linux">LINUX</h3>
+                    <ul>
+                        <li>MySQL Databases - Unlimited</li>
+                        <li>Database Space - Included as part of webspace</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3 class="windows">WINDOWS</h3>
+                    <ul>
+                        <li>MySQL/MSSQL/Access Databases</li>
+                        <li>Unlimited</li>
+                        <li>ASP</li>
+                        <li>ASP.NET v3.5</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3 class="linuxwindows">COMMON FEATURES</h3>
+                    <ul>
+                        <li>Dual Quad Core Xeon Processors</li>
+                        <li>24GB Ram</li>
+                        <li>Highly redundant architecture</li>
+                    </ul>
+                </div>
+            </div>
+            <span onclick="closeModal('database-dialog')" class="close">close</span>
+        </div>
+    </div>
+  </div>
+  
+  <div style="display: none;" class="modal-wrapper-ssl" id="domainnemail-dialog">
+    <div class="modal_overlay" style="width: 1591px; height: 3945px;"></div>
+    <div class="modal_content interstitial_content">
+        <div class="mid-section">
+            <div class="display-wrapper">
+                <h2>DOMAIN & EMAIL</h2>
+                <div class="section" style="width:700px">
+                    <h3 class="linuxwindows">COMMON FEATURES</h3>
+                    <ul>
+                        <li>Single Domain Hosting</li>
+                        <li>Domain Forwarding & Free DNS Management</li>
+                        <li>Path Forwarding & URL Masking</li>
+                        <li>Space per Email Account - 2GB(unlimited for MDH plans)</li>
+                        <li>Email Compatible with Blackberry/iPhone/Mobile</li>
+                        <li>Webmail/SMTP/POP3/IMAP</li>
+                        <li>Advanced Spam/Virus Protection</li>
+                        <li>Unlimited Email Forwards/Aliases/Auto-responders</li>
+                        <li>50 Mailing Lists(unlimited for MDH plans)</li>
+                        <li>HTML Email</li>
+                        <li>Online Address Book</li>
+                        <li>Track sent mails</li>
+                    </ul>
+                </div>
+            </div>
+            <span onclick="closeModal('domainnemail-dialog')" class="close">close</span>
+        </div>
+    </div>
+  </div>
+  
+  <div style="display: none;" class="modal-wrapper-ssl" id="support-dialog">
+    <div class="modal_overlay" style="width: 1591px; height: 3945px;"></div>
+    <div class="modal_content interstitial_content">
+        <div class="mid-section">
+            <div class="display-wrapper">
+                <h2>SUPPORT</h2>
+                <div class="section">
+                    <h3 class="linuxwindows">COMMON FEATURES</h3>
+                    <ul>
+                        <li>Fully qualified technical support</li>
+                        <li>24/7 Live Chat / Phone / Email</li>
+                        <li>24/7 Monitoring</li>
+                        <li>High Availability</li>
+                    </ul>
+                </div>
+            </div>
+            <span onclick="closeModal('support-dialog')" class="close">close</span>
+        </div>
+    </div>
+  </div>
+  
+  <div style="display: none;" class="modal-wrapper-ssl" id="includeapp-dialog">
+    <div class="modal_overlay" style="width: 1591px; height: 3945px;"></div>
+    <div class="modal_content interstitial_content">
+        <div class="mid-section">
+            <div class="display-wrapper">
+                <h2>INCLUDED APPS</h2>
+                <div class="section" style="width:790px;margin-bottom:30px;">
+                    <h3 class="linuxwindows">COMMON APPS</h3>
+                    <ul style="float:left;width:315px;">
+                        <li>Blogs - WordPress, b2evolution</li>
+                        <li>Photo Galleries - 4images Gallery</li>
+                        <li>Web Portals & CMS - Drupal, Joomla</li>
+                        <li>Shopping Cart - osCommerce, CubeCart</li>
+                        <li>Polls and Surveys - Advanced Poll, phpsurveyor</li>
+                    </ul>
+                    <ul style="float:left;width:315px;">
+                        <li>Wiki - phpWiki, mediawiki</li>
+                        <li>Message Forums - phpBB</li>
+                        <li>Customer Management - SugarCRM/osTicket and over 100 apps</li>
+                    </ul>
+                </div>
+                <h2>OTHER FEATURES</h2>
+                <div class="section">
+                    <h3 class="linux">LINUX</h3>
+                    <ul>
+                        <li>cPanel (demo) - 11x</li>
+                        <li>Apache 2.2x</li>
+                        <li>CentOS - Release 5.5</li>
+                        <li>Cron Jobs (Scheduled Tasks)</li>
+                        <li>cURL</li>
+                        <li>Zend Engine</li>
+                        <li>Zend Optimizer</li>
+                        <li>zlib</li>
+                        <li>mcrypt</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h3 class="windows">WINDOWS</h3>
+                    <ul>
+                        <li>Plesk Panel (Demo)</li>
+                        <li>IIS (Internet Information Services) 7.0</li>
+                        <li>MS SQL 2008 Standard Edition (64-bit)</li>
+                        <li>ASP.NET 4.0</li>
+                        <li>ASP</li>
+                        <li>MVC</li>
+                        <li>Reporting Services 2008 Version 12.0</li>
+                        <li>(Crystal Reporting Services, Data Report)</li>
+                    </ul>
+                </div>
+                <div class="section" style="width:790px;">
+                    <h3 class="linuxwindows">COMMON FEATURES</h3>
+                    <ul style="float:left;width:315px;">
+                        <li>Unlimited Sub Domains</li>
+                        <li>Web Access via Mobiles</li>
+                        <li>Custom MIME Types</li>
+                        <li>Dedicated IP - Add-on</li>
+                        <li>Directory Protection</li>
+                        <li>Domain Aliases</li>
+                        <li>File Manager</li>
+                        <li>ionCube Loader</li>
+                        <li>Latest Visitors</li>
+                        <li>MySQL 5x</li>
+                        <li>PDO_MySQL</li>
+                    </ul>
+                    <ul style="float:left;width:315px;">
+                        <li>SSL Manager</li>
+                        <li>SSL/HTTPS Support - Add-on</li>
+                        <li>Unlimited FTP Users</li>
+                        <li>Access to raw logs</li>
+                        <li>AWSTATS</li>
+                        <li>Backup Manager (Backup Policy Manager)</li>
+                        <li>Bandwidth Report</li>
+                        <li>Comprehensive Knowledge-base</li>
+                        <li>Custom Error Pages</li>
+                        <li>phpMyAdmin - 3x</li>
+                        <li>Cron Jobs/Scheduled Tasks</li>
+                    </ul>
+                </div>
+            </div>
+            <span onclick="closeModal('includeapp-dialog')" class="close">close</span>
+        </div>
+    </div>
+  </div>
+  
+  <!--modals -->
+  </div>
+  </div>
+  </div>
+  </div>
+  <div id="modal_div" class="modal-wrapper" style="display:none">
+    <div class="modal_overlay">
+    </div>
+    <div id="select_domain"class="wide_modal modal_content">
+        <#include:products/hosting/web_email_hosting/includes/modal_select_domain.html /#>
+    </div>
+  </div>
+  <!-- Google Code for BigRock Dot IN Main List -->
+  <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+  <script type='text/javascript'>
+    function populate_and_show_modal(type)
+    {
+        $("#hostingplan_with_domain input[name='location']").val('us');
+        $("#hostingplan_with_domain input[name='type']").val(type);
+        $("#hostingplan_with_domain input[name='planid']").val($('#' + type + '_plan_id').val());
+        $("#hostingplan_with_domain input[name='duration']").val($('#' + type + '_duration').val());
+        $("form[name=" + type + "_hostingplan] > input[name=duration]").val($('#' + type + '_duration').val());
+        plan_id = $("#" + type + "_plan_id").val();
+  
+        if(type == "linux"){
+            try{
+                ga('send', 'pageview', 'buy-plan/linux');
+            }catch(e){}
+        }
+        if(type == "w2k"){
+            try{
+                ga('send', 'pageview', 'buy-plan/windows');
+            }catch(e){}
+        }
+        showModal();
+    }
+
+    $('.close').on('click', function(){
+        closeModal();
+        $('#existing-domain-user').hide();
+        $('#new-domain-user').hide();
+        $('.domain-options').show();
+        $('.sitelock-box').hide();
+        $('.modal-footer').hide();
+
+    })
+
+    $(document).ready(function() {
+        $(".sf-chat").on("click", function(e) {
+            e.preventDefault();
+            $(".embeddedServiceHelpButton .helpButton .uiButton").trigger("click");
+        });
+    });
+  </script>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 966307020;
+    var google_conversion_label = "2EovCNyBugQQzNnizAM";
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+  </script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+  </script>
+  <noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/966307020/?value=0&label=2EovCNyBugQQzNnizAM&guid=ON&script=0"/>
+    </div>
+  </noscript>
+  <!-- getImage.php?src=myUploadedImages/interstitialhostingbannerimgus.png -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/", 
+      "@type": "Product", 
+      "name": "Web Hosting India",
+      "image": "https://www.bigrock.in/ui/resellerdata/240000_269999/247133/bigrock.in/bigrock/themes/ClassicBlue-MyTheme/images/myUploadedImages/brflatlogo.png",
+      "description": "Get best in class website hosting with BigRock - India's #1 web hosting company. Includes 99.9% uptime & 24x7 support. Call at 1-800-200-7625 to purchase web hosting.",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "price": "59"
+      }
+    }
+    </script>

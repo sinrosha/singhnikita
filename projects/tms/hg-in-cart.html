@@ -1,0 +1,2959 @@
+<style type="text/css">
+	.couponWrp .btn-flat-green {
+		display: block;
+	}
+	.hg-call-mob.visible-xs {
+		margin-top: 1px;
+	}
+	@media only screen and (max-width: 768px) {
+		.footer {
+			position: fixed;
+		}
+		.sectionWrp.open .contentBlock {
+				margin-bottom: 120px;
+				overflow: visible;
+		}
+	}
+	</style>
+	<div class="header">
+		<div class="container">
+			<div class="hg-header-cart">
+				<div class="cart-logo">
+					<a href="/" class="hostgator-logo">
+						<img class="hidden-xs" src="/ui/hostgator/themes/MinimalGreen/images/hg-logo-default.svg">
+						<img class="visible-xs" src="/ui/hostgator/themes/MinimalGreen/images/hg-logo-default.svg">
+					</a>
+				</div>
+				<div class="cart-contact">
+					<div class="hidden-xs call-no">24/7 Connect: <strong><a href="tel:+18002098833">1800-209-8833</a></strong> <div class="contact-divide">|</div> </div>
+					<div class="hg-call-mob visible-xs">
+						<a href="tel:+18002098833"><img src="/ui/hostgator/themes/MinimalGreen/images/callIcon.png"></a>
+						
+					</div>
+					<div class="chat-no">
+						<a href="#" title="24/7/365 Live Chat">
+							<img src="/ui/hostgator/themes/MinimalGreen/images/cart_chat.png">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>        
+	</div>
+	
+	<div id="maincontent" class="pageWrp checkout">
+		<div class="container cart-wrap">
+			<#if:show_gapps_removed_msg#>
+            <div id="error_lists" class="note2 alert alert-warning" role="alert">
+                <p>
+                    Oops! It looks like Google doesn't sell G Suite (formerly Google Apps for Work) in your country.
+                    <a href="<#tag:email_link /#>">Try our other email solutions instead.</a>
+                </p>
+            </div>
+        <#/if:show_gapps_removed_msg#>
+
+        <#if:show_gapps_changed_msg#>
+            <div id="error_lists" class="note2 alert alert-warning" role="alert">
+                    <p>Google offers country-specific prices. Your price has been updated as per the country in your profile (<#tag:customer_country /#>).</p>
+            </div>
+        <#/if:show_gapps_changed_msg#>
+
+		<#tag:show_error /#>
+			<div class="sectionWrp summary open">
+				
+				<p class="title"><span class="check"><img src="/ui/hostgator/themes/MinimalGreen/images/check_step1.png"></span> <span class="txt">Your Order Summary</span> <span class="txt2">Total Amount: </span> <span class="finalprice"></span> <span class="edit"><img src="/ui/hostgator/themes/MinimalGreen/images/edit_cart.png"><span class="hidden-xs">Edit</span></span></p>
+				<div class="contentBlock CartSection">
+					<div class="hg-mob-sum-title visible-xs">Your Order Summary</div>
+					<div class="hg-cart-left">
+						<form name="purchase" method="POST" action="/checkout.php" class="form">
+							<input type="hidden" name="action" value="complete_order">
+							<input type="hidden" name="payment_type" value="">
+							<input type="hidden" name="gateway_id" value="">
+							<input type="hidden" name="card_cvv" value="">
+							<input type="hidden" name="country" value="">
+							<input type="hidden" name="ccavenue_option" value="">
+							<input type="hidden" name="gateway_params" value="">
+							<input type="hidden" name="selected_bank" value="">
+							<input type="hidden" name="show_signup" value="<#tag:show_signup /#>">
+							<input type="hidden" id="pp_price" name="pp_price" value="<#tag:privacy_protect_price /#>" >
+	
+							<div class="cartItemsWrp">
+								<div class="row cartItemHeader">
+									<div class="col-sm-4"><h4>Product</h4></div>
+									<div class="col-sm-5"><h4>Duration</h4></div>
+									<div class="col-sm-3"><h4 class="hg-price">Price</h4></div>
+								</div>
+								<#cloop:items#>
+	
+								<#case:domain#>
+								<div class="row productBlock CartItemRow domain " id="<#tag:items[].product /#>" name="product_items[]">
+									<div class="col-sm-4 col-xs-12 hg-others">
+										<div class="hg-pname-pprice">
+											<div class="pName colunm">
+												<input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+												<div id="<#tag:items[].name /#>_pp_status" class="domain_pp_status" style="display: none"><#tag:items[].privacy_protect_status /#></div>
+												<div class="name itemblock topRow vCenter hg-cart-domain-name"><#tag:items[].name /#></div>
+												<!-- <div class="pp_name pp itemblock addons" style="display: <#tag:items[].show_privacy_protect /#>">
+													Privacy Protect
+												</div> -->
+												<div class="pDescription colunm pDescription-free">
+													<p class="description itemblock topRow vCenter">Free Addons worth <#tag:curr_sym /#> 5000. <a href="#" class="addon-popup">What do I get?</a></p>       
+												</div> 
+											</div>
+											<div class="pPrice CartSubTotal colunm visible-xs">
+												<div class="pos_hlp itemblock topRow">
+													<p class="price ItemSubTotal">
+														<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+													</p>
+												</div>
+												<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+												<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+											</div>
+										</div>
+										<!-- PP Domain checkbox -->  
+										<div class="pDescription colunm column3">
+											<div style="display: none;"><#include:products/domain/domain_registration/check_availibilty/included_free.html /#></div>
+											<p class="pp_description pp">
+	
+												<input type="checkbox" class="ui-switch enabled-radio" id="<#tag:items[].name /#>_pp_status_enabled-radio" name="<#tag:items[].name /#>" value="true"> 
+	
+												<label for="<#tag:items[].name /#>_pp_status_enabled-radio">Protect your contact information by enabling Privacy Protect.<br>
+												<a href="#" onclick="showModal('modal_privacy_protect');">What is Privacy Protect?</a>
+												</label>
+											</p>
+										</div>
+										<div class="pPrice CartSubTotal colunm visible-xs">
+											<div class="itemblock pp privacy-protect">
+												<p class="pp_price pp addons" style="display: <#tag:items[].show_privacy_protect /#>">
+													<span style="" id="<#tag:items[].name /#>_pp_div" class="pp_div privacyprotection"> <#tag:curr_sym /#> <span><#tag:items[].privacy_protect_price /#></span></span>
+													<input style="display: none;" class="pp_checkbox" type="checkbox" name="privacy_protect" value="<#tag:items[].name /#>" checked="true" />
+												</p>
+											</div>
+											<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+											<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+										</div>                                    
+									</div> 
+															
+									<div class="col-sm-5 col-xs-12">
+										<!-- domain Duration -->      
+										<div class="pDuration colunm">
+											<div class="itemblock topRow">
+												<p class="selectWrp">
+													<select class="update_item_class" name="<#tag:items[].product /#>">
+														<#loop:items[].price#>
+															<option id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>" value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  <#tag:items[].price[].selected /#>><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#>/yr</option>
+															<#/loop:items[].price#>
+													</select>
+													<span class="cancel-change-tenure">Cancel</span>
+												</p>
+												<p class="SavingsShow"></p>
+												<p class="pp" style="display: <#tag:items[].show_privacy_protect /#>"></p>
+											</div>
+										</div>
+										<!-- Mobile domain delete -->
+										<div class="pPrice CartSubTotal colunm visible-xs">
+											<div class="itemblock topRow">
+												<a class="remove_item_img remove_item_class" name="<#tag:items[].product /#>" href="###">Delete</a>
+											</div>        
+										</div>
+									</div>
+								   
+									<!-- Desktop domain & PP Price  + delete button -->
+									<div class="col-sm-3 col-xs-12 hidden-xs">
+										<div class="pPrice CartSubTotal colunm">
+											<div class="pos_hlp itemblock topRow">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+												</p>
+												<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+											</div>
+											<div class="itemblock pp privacy-protect">
+												<p class="pp_price pp addons" style="display: <#tag:items[].show_privacy_protect /#>">
+													<span style="" id="<#tag:items[].name /#>_pp_div" class="pp_div privacyprotection"> <#tag:curr_sym /#> <span><#tag:items[].privacy_protect_price /#></span></span>
+													<input style="display: none;" class="pp_checkbox" type="checkbox" name="privacy_protect" value="<#tag:items[].name /#>" checked="true" />
+													<!-- <a class="remove_item_img pp pp_addon_remove glyphicon glyphicon-trash" data-value="<#tag:items[].name /#>" name="<#tag:items[].product /#>" href="###"></a> -->
+												</p>
+											</div>
+											<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+											<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+											<span class="change-tenure">Change Tenure</span>
+										</div>
+									</div>                                    
+								</div>
+								<#/case:domain#>
+								<#case:productbundle#>
+								<div class="row productBlock CartItemRow productbundle" id="<#tag:items[].product /#>" name="product_items[]">
+									<div class="col-sm-4 col-xs-12 hg-others">                               
+										<div class="pName colunm">
+											<span class="cart-product-icon">
+											  <span id="bundles-carticon"></span>
+											  <span class="cart-product-name">Security & backup bundle</span>
+											</span>
+											<div class="cartItem-product-detail">
+												<p class="ItemTitle"><#tag:items[].plan_name /#></p>
+												<p><#tag:items[].name /#></p>
+												<!-- <p class="ItemSubTitle"><span class="gray-text"><#tag:items[].details /#></span></p> -->
+											</div>
+										</div>
+										<div class="pDescription colunm">
+											<ul class="sub-products">
+												<#loop:items[].sub_plans#>
+													<li>
+														<div class="cartItem-product-detail">
+															<p class="ItemTitle"><#tag:items[].sub_plans[].name /#></p>
+															<div class="clear"></div>
+														   <!--  <p class="ItemSubTitle"><span class="gray-text"><#tag:items[].sub_plans[].dom_name /#></span>
+															<span class="hg-subtext"><#tag:items[].sub_plans[].details /#></span>
+															</p> -->
+														</div>
+													</li>
+												<#/loop:items[].sub_plans#>
+	
+											</ul>
+										</div>                                                          
+									</div>
+								   
+									<div class="col-sm-5 col-xs-12">
+										<div class="pDuration colunm">
+											<div class="itemblock topRow">
+												<p class="selectWrp">
+													<span class="hg-productbundle-dur">1 Year at Rs. 233/Month</span>
+													<span class="cancel-change-tenure">Cancel</span>
+												</p>
+												<p class="SavingsShow"></p>
+												<p class="pp" style="display: <#tag:items[].show_privacy_protect /#>"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3 col-xs-12">
+										<div class="pPrice CartSubTotal colunm">
+											<div class="pos_hlp itemblock topRow">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+												</p>
+												<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+											</div>
+											<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+											<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+											<span class="change-tenure">Change Tenure</span>
+										</div>
+									</div>
+										
+								</div>
+	
+								<#/case:productbundle#>
+								<#case:orgdomain#>
+								<div class="row productBlock CartItemRow orgdomain" id="<#tag:items[].product /#>" name="product_items[]">
+									<div class="col-sm-4 col-xs-12 hg-others">                                
+										<div class="pName colunm">
+											<input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+											<div id="<#tag:items[].name /#>_pp_status" style="display: none"><#tag:items[].privacy_protect_status /#></div>
+											<div class="name itemblock topRow"><#tag:items[].name /#></div>
+											<div class="pp_name pp itemblock addons" style="display: <#tag:items[].show_privacy_protect /#>">
+												Privacy Protect
+											</div>
+										</div>
+										<div class="pDescription colunm column1">
+											<p class="description itemblock topRow">Free Addons worth <#tag:curr_sym /#> 5000. <a href="#" class="addon-popup">What do I get?</a></p>
+											<div style="display: none;"><#include:products/domain/domain_registration/check_availibilty/included_free.html /#></div>
+											<p class="pp_description pp" style="display: <#tag:items[].show_privacy_protect /#>">Protect your identity by enabling Privacy Protect. <a href="#" onclick="showModal('modal_privacy_protect');">What is Privacy Protect?</a></p>
+										</div>                                    
+									</div>
+									
+									<div class="col-sm-5 col-xs-12">
+										<div class="pDuration colunm">
+											<div class="itemblock topRow">
+											<p class="selectWrp">
+												<select class="update_item_class" name="<#tag:items[].product /#>">
+													<#loop:items[].price#>
+														<option id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>" value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  <#tag:items[].price[].selected /#>><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#><#tag:items[].duration_type /#></option>
+														<#/loop:items[].price#>
+												</select>
+												<span class="cancel-change-tenure">Cancel</span>
+											</p>
+											<p class="SavingsShow"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3 col-xs-12">
+										<div class="pPrice CartSubTotal colunm">
+											<div class="pos_hlp itemblock topRow">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+												</p>
+												<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+											</div>
+											<div class="itemblock">
+												<p class="pp_price pp addons" style="display: <#tag:items[].show_privacy_protect /#>">
+													<span style="" id="<#tag:items[].name /#>_pp_div" class="pp_div privacyprotection"> <#tag:curr_sym /#> <span><#tag:items[].privacy_protect_price /#></span></span>
+													<input style="display: none;" class="pp_checkbox" type="checkbox" name="privacy_protect" value="<#tag:items[].name /#>" checked="true" />
+													<!-- <a class="remove_item_img pp pp_addon_remove glyphicon glyphicon-trash" data-value="<#tag:items[].name /#>" name="<#tag:items[].product /#>" href="###"></a> -->
+												</p>
+											</div>
+											<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+											<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+											<span class="change-tenure">Change Tenure</span>
+										</div>
+									</div>
+								</div>
+								<#/case:orgdomain#>
+	
+								<#case:other#>
+								<div class="row productBlock CartItemRow others" id="<#tag:items[].product /#>" name="product_items[]">
+									<div class="col-sm-4 col-xs-12 hg-others">    
+										<div class="hg-pname-pprice">
+											<div class="pName colunm">
+												<input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+												<!-- <div id="<#tag:items[].name /#>_pp_status" style="display: none"><#tag:items[].privacy_protect_status /#></div> -->
+												<div class="itemblock topRow otherName">
+													<span class="nameWrp"><span class="hg-item-name"><#tag:items[].item_name /#></span> <span class="hg-plan-name-cart">(<#tag:items[].plan_name /#>)</span></span>
+												</div>
+												<div class="hosting-addons">
+													<#loop:items[].addons#>
+														<span>+ <#tag:items[].addons[].display_name /#></span>
+													<#/loop:items[].addons#>
+												</div>
+												<!-- Addon Price -->
+												<div class="itemblock hg-addon-cont">
+													<p class="pp_price pp addons otherAddonsPrice">
+														(<#tag:curr_sym /#> <span class="hosting-addon-price"><#tag:items[].addon_price /#>)</span>
+													</p>
+												</div>
+												<#loop:items[].addons_price#>
+													<div class="addons-price" data-value="<#tag:items[].addons_price[].name /#>" style="display: none"><#tag:items[].addons_price[].price /#></div>
+												<#/loop:items[].addons_price#>
+												<div class="setup_price" style="display: none" id="<#tag:items[].setup_price /#>"><#tag:items[].setup_price /#></div>
+												<div class="addon_price" style="display: none" id="<#tag:items[].addon_price /#>"><#tag:items[].addon_price /#></div>
+											<!-- Ends Addon Price -->
+											</div>
+											<div class="pPrice CartSubTotal colunm visible-xs">
+												<div class="pos_hlp itemblock topRow">
+													<p class="price ItemSubTotal">
+														<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal" class="hg-product-value"><#tag:items[].totalprice /#></span>                                                
+													</p>
+												</div>                                        
+											</div>
+										</div>                           
+											
+										<div class="pDescription colunm">
+											<div class="itemblock topRow">
+												<!-- <span class="item_name"><#tag:items[].item_name /#><br></span> -->
+												<span data-mail-accounts="<#tag:items[].mail_accounts /#>"><#tag:items[].details /#></span>
+												<div class="domain-des">
+													Domain: <strong><#tag:items[].name /#></strong>
+												</div>
+											</div>
+										</div>                                   
+									</div>                                
+									<div class="col-sm-5 col-xs-12">
+										<div class="pDuration colunm">
+											<div class="itemblock topRow">
+												<p class="selectWrp">
+													<select class="update_item_class" name="<#tag:items[].product /#>">
+														<#loop:items[].price#>
+															<option id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  <#tag:items[].price[].selected /#>><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#><#tag:items[].duration_type /#></option>
+															<#/loop:items[].price#>
+													</select>
+												</p>
+												<p class="SavingsShow"><#tag:items[].message /#></p>
+											</div>
+										</div>
+										<div class="offer-blurb" data-id="<#tag:items[].product /#>">
+											Special Offer
+											<div class="offer-text">
+                                                <span class="extra-months">Get 3-months</span> <span class="hide-shared">plan at the <br class="hidden-md hidden-lg"/> price of just</span> <span class="price-months">2 months!</span>
+                                            </div>                                       
+	
+											<div><a href="#" class="btn btn-primary" data-value="">Grab Offer</a></div>
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										</div>
+										<div class="pPrice CartSubTotal colunm visible-xs">
+											<div class="itemblock topRow">
+												
+												<div class="text-left">
+													<a class="remove_item_img remove_item_class" name="<#tag:items[].product /#>" href="###">Delete</a>
+												</div>                                                
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-3 col-xs-12 hidden-xs">
+										<div class="pPrice CartSubTotal colunm hidden-xs">
+											<div class="pos_hlp itemblock topRow">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal" class="hg-product-value"><#tag:items[].totalprice /#></span>
+													<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+												</p>
+											</div>
+											<span class="change-tenure">Change Tenure</span>
+										</div>
+									</div>
+								   
+								</div>
+								<#/case:other#>
+								<#case:gapps#>
+                                <div class="row productBlock CartItemRow gapps" id="<#tag:items[].product /#>" name="product_items[]">
+                                    <!-- First product desc -->
+                                    <div class="col-sm-4 col-xs-12 hg-others">
+                                        <div class="hg-pname-pprice">
+                                            <div class="pName colunm">
+                                                <input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+                                                <div class="itemblock topRow otherName">
+                                                    <span class="nameWrp"><span class="hg-item-name"><#tag:items[].item_name /#></span> <span class="hg-plan-name-cart">(<#tag:items[].plan_name /#>)</span></span>
+                                                </div>
+                                                <div class="hosting-addons">
+                                                    <#loop:items[].addons#>
+                                                        <span>+ <#tag:items[].addons[].display_name /#></span>
+                                                    <#/loop:items[].addons#>
+                                                </div>
+                                                <!-- Addon Price -->
+                                                <div class="itemblock hg-addon-cont">
+                                                    <p class="pp_price pp addons otherAddonsPrice">
+                                                        (<#tag:curr_sym /#> <span class="hosting-addon-price"><#tag:items[].addon_price /#>)</span>
+                                                    </p>
+                                                </div>
+                                                <#loop:items[].addons_price#>
+                                                    <div class="addons-price" data-value="<#tag:items[].addons_price[].name /#>" style="display: none"><#tag:items[].addons_price[].price /#></div>
+                                                <#/loop:items[].addons_price#>
+                                                <div class="setup_price" style="display: none" id="<#tag:items[].setup_price /#>"><#tag:items[].setup_price /#></div>
+                                                <div class="addon_price" style="display: none" id="<#tag:items[].addon_price /#>"><#tag:items[].addon_price /#></div>
+                                                <!-- Ends Addon Price -->
+                                            </div>
+                                            <div class="pPrice CartSubTotal colunm visible-xs">
+                                                <div class="pos_hlp itemblock topRow">
+                                                    <p class="price ItemSubTotal">
+                                                        <#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal" class="hg-product-value"><#tag:items[].totalprice /#></span>                                                
+                                                    </p>
+                                                </div>                                        
+                                            </div>
+                                            <div class="pDescription colunm">
+                                                <div class="itemblock topRow">
+                                                    <!-- <span class="item_name"><#tag:items[].item_name /#><br></span> -->
+                                                    <span data-mail-accounts="<#tag:items[].mail_accounts /#>"><#tag:items[].details /#></span>
+                                                    <div class="domain-des">
+                                                        Domain: <strong><#tag:items[].name /#></strong>
+                                                    </div>
+                                                    <div class="domain-des">
+														<p class="details" data-mail-accounts="<#tag:items[].mail_accounts /#>" > <span class="gsuite-licences-txt" data-limit="<#tag:items[].disc_nos_of_acc /#>"><#tag:items[].mail_accounts /#> Account</strong></span></p>
+														
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>              
+                                    <!-- Duration -->
+                                    <div class="col-sm-5 col-xs-12">
+                                        <div class="pDuration colunm">
+                                            <div class="itemblock topRow">
+                                                <p class="selectWrp">
+                                                    <select class="update_item_class" name="<#tag:items[].product /#>">
+                                                        <#loop:items[].price#>
+                                                            <option data-monthly-price="<#tag:items[].price[].price /#>" data-nondiscount-price="<#tag:items[].price[].price_without_discount /#>" cvalue="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  <#tag:items[].price[].selected /#>><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#><#tag:items[].duration_type /#></option>
+                                                            <#/loop:items[].price#>
+                                                    </select>
+                                                </p>
+                                                <p class="SavingsShow"><#tag:items[].message /#></p>
+                                            </div>
+                                        </div>
+                                        <div class="pPrice CartSubTotal colunm visible-xs">
+                                            <div class="itemblock topRow">
+                                                
+                                                <div class="text-left">
+                                                    <a class="remove_item_img remove_item_class" name="<#tag:items[].product /#>" href="###">Delete</a>
+                                                </div>                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Total -->
+                                    <div class="col-sm-3 col-xs-12 hidden-xs">
+                                        <div class="pPrice CartSubTotal colunm hidden-xs">
+                                            <div class="pos_hlp itemblock topRow">
+                                                <p class="price ItemSubTotal">
+                                                    <#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal" class="hg-product-value"><#tag:items[].totalprice /#></span>
+                                                    <a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+                                                </p>
+                                            </div>
+                                            <span class="change-tenure">Change Tenure</span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <#/case:gapps#>
+								<#case:upgrade#>
+								<div class="row productBlock CartItemRow upgrade" id="<#tag:items[].product /#>" name="product_items[]" title="upgrade" total="<#tag:items[].totalprice /#>">
+									<div class="col-sm-4 col-xs-12">                                
+										<div class="pName colunm">
+											<input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+											<div id="<#tag:items[].name /#>_pp_status" style="display: none"><#tag:items[].privacy_protect_status /#></div>
+											<#tag:items[].plan_name /#>
+										</div>
+										<div class="pDescription colunm">
+											<#tag:items[].oldplanname /#><br />
+											<#tag:items[].details /#><br />
+											[<#tag:items[].name /#>]
+										</div>                                    
+									</div>
+									
+									<div class="col-sm-5 col-xs-12">
+										<div class="pDuration colunm">
+											<p class="selectWrp">
+												<select class="update_item_class" name="<#tag:items[].product /#>" disabled="true">
+													<#loop:items[].price#>
+														<option id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>" value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>"  <#tag:items[].price[].selected /#>><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#><#tag:items[].duration_type /#></option>
+													<#/loop:items[].price#>
+												</select>
+												<span class="cancel-change-tenure">Cancel</span>
+											</p>
+											<p class="SavingsShow"></p>
+										</div>
+									</div>
+									<div class="col-sm-3 col-xs-12">
+										<div class="pPrice CartSubTotal colunm">
+											<div class="pos_hlp">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+														<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+												</p>
+												<div class="setup_price" style="display: none" id="<#tag:items[].setup_price /#>"><#tag:items[].setup_price /#></div>
+												<span class="change-tenure">Change Tenure</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<#/case:upgrade#>
+	
+								<#case:sunrise_domain#>
+								<div class="row productBlock CartItemRow sunrise_domain" id="<#tag:items[].product /#>" name="product_items[]" >
+									<div class="col-sm-4 col-xs-12">                              
+										<div class="pName colunm">
+											<input type="hidden" name="product_name[]" value="<#tag:items[].product /#>">
+											<div id="<#tag:items[].name /#>_pp_status" style="display: none"><#tag:items[].privacy_protect_status /#></div>
+											<div class="name"><#tag:items[].name /#></div>
+											<div class="pp_name pp" style="display: <#tag:items[].show_privacy_protect /#>">
+												Privacy Protect
+											</div>
+										</div>
+										<div class="pDescription colunm column2">
+											<p class="description"><#tag:items[].application_cost_text /#></p>
+											<p class="pp_description pp" style="display: <#tag:items[].show_privacy_protect /#>">Protect your identity by enabling Privacy Protect. <a href="#" onclick="showModal('modal_privacy_protect');">What is Privacy Protect?</a></p>
+										</div>                                    
+									</div>
+									
+									<div class="col-sm-5 col-xs-12">
+										<div class="pDuration colunm">
+											<p class="selectWrp">
+												<select class="update_item_class" name="<#tag:items[].product /#>">
+													<#loop:items[].price#>
+														<option id="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>" value="<#tag:items[].price[].year /#>_<#tag:items[].price[].price /#>_<#tag:items[].price[].savings /#>" <#tag:items[].price[].selected /#> ><#tag:items[].price[].display_year /#> at <#tag:curr_sym /#> <#tag:items[].price[].price /#>/yr</option>
+													<#/loop:items[].price#>
+												</select>
+												<span class="cancel-change-tenure">Cancel</span>
+											</p>
+											<p class="SavingsShow"></p>
+										</div>
+									</div>
+									<div class="col-sm-3 col-xs-12">
+										<div class="pPrice CartSubTotal colunm">
+											<div class="pos_hlp">
+												<p class="price ItemSubTotal">
+													<#tag:curr_sym /#> <span id="<#tag:items[].product /#>_subtotal"><#tag:items[].totalprice /#></span>
+												</p>
+												<a class="remove_item_img remove_item_class glyphicon glyphicon-trash" name="<#tag:items[].product /#>" href="###"></a>
+												<p class="pp_price addons pp" style="display: <#tag:items[].show_privacy_protect /#>">
+													<span style="" id="<#tag:items[].name /#>_pp_div" class="pp_div privacyprotection"> <#tag:curr_sym /#> <span><#tag:items[].privacy_protect_price /#></span></span>
+													<input style="display: none;" class="pp_checkbox" type="checkbox" name="privacy_protect" value="<#tag:items[].name /#>" checked="true" />
+												   <!--  <a class="remove_item_img pp pp_addon_remove glyphicon glyphicon-trash" data-value="<#tag:items[].name /#>" name="<#tag:items[].product /#>" href="###"></a> -->
+												</p>
+											</div>
+											<div class="setup_price" style="display: none" id="<#tag:items[].setup_price /#>"><#tag:items[].setup_price /#></div>
+											<div class="promo_price" style="display: none"><#tag:items[].promoprice /#></div>
+											<div class="promo_period" style="display: none"><#tag:items[].promoperiod /#></div>
+											<span class="change-tenure">Change Tenure</span>
+										</div>
+									</div>
+								</div>
+								<#/case:sunrise_domain#>
+	
+	
+								<#/cloop:items#>
+							</div>
+						</form>
+					</div>
+					<div class="hg-cart-right">
+						<div class="cartfooter">
+							<table class="cartTotalWrp" cellpadding="0" cellspacing="0" border="0" width="100%">
+							   <tr class="hg-title-summary">
+									<td colspan="2">Order Summary</td>
+								</tr>
+								<tr class="ItemConvertedSubtotal">
+									<td class="itemText" colspan="1">
+										<p>Subtotal:</p>
+									</td>
+									<td class="itemAmount" colspan="1">
+										<p id="CartTotal"><#tag:curr_sym /#> <span id="total"><#tag:total /#></span></p>
+									</td>
+								</tr>
+								<tr class="ItemDiscountTotal" style="display:none">
+									<td class="itemText">
+										<p>Coupon Discount:</p>
+									</td>
+									<td class="itemAmount">
+										<p id="DiscountTotal">- <#tag:curr_sym /#> <span id="disctotal"></span></p>
+									</td>
+								</tr>
+								<tr class="ItemNetSubtotal" style="display:none;">
+									<td class="itemText">
+										<p>Net Amount:</p>
+									</td>
+									<td class="itemAmount">
+										<p id="CartTotal2"><#tag:curr_sym /#> <span id="nettotal"><#tag:total /#></span></p>
+									</td>
+								</tr>
+								<tr class="taxTotal">
+									<td class="itemText">
+										<p>Tax<a href="#" onmouseover="return escape('Taxes applicable as per country')"><i class="glyphicon glyphicon-question-sign" style="margin-left:5px;"></i></a>:</p>
+									</td>
+									<td class="itemAmount">
+										<p id="taxTotalCurrency"><#tag:curr_sym /#> <span id="taxTotalAmount"><#tag:tax_amount /#></span></p>
+									</td>
+								</tr>
+							   
+								<tr class="ItemTotalAfterDiscount">
+									<td class="itemText">
+										<p>Total Amount:</p>
+									</td>
+									<td class="itemAmount">
+										<p id="TotalAmount"><#tag:curr_sym /#> <span id="totalpayable"><#tag:total_with_tax /#></span><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></p>
+									</td>
+								</tr>
+							</table>
+							<div class="btnWrp">
+								<a id="summary-btn" class="btn-primary btn">Continue</a>
+							</div>                       
+							<div class="socialBtnWrp pull-left">
+								<div class="fbConnect" <#if:no_top_strip#>style="display: none;"<#/if:no_top_strip#>>
+									<!--<span id="fbButton" class="fbbtn"></span>-->
+									<!--&lt;!&ndash;<span class="seperator">&nbsp;</span>&ndash;&gt;-->
+									<!--<span class="twitter-connect-discount" id="twitter_connect"></span>-->
+									<!--<span id="followBigRock"></span> <span class="txt">Share on Facebook or Twitter to get 10% off*</span>-->
+	
+									<!--13-10-16 added-->
+									<!-- <span id="fbButton" class="fbbtn"></span>
+									<span class="twitter-connect-discount" id="twitter_connect"></span>
+									<span id="followBigRock"></span> <span class="txt">Share on Facebook or Twitter to get 10% off*</span> -->
+	
+								</div>
+							</div>
+						</div>
+						<form id="couponCodeContainer" class="couponWrp" name="couponForm" method="post" action="/discount.php" id="form_couponForm">
+							<input type="text" name="coupon_code" id="input_coupon_code" placeholder="Have a Coupon Code?" value="<#tag:couponcode /#>">
+	
+							<button class="btn-flat-green" data-loading-text="Loading..." id="applyCoupon" type="submit" name="apply" value="Apply">
+								<!-- <span class="visible-xs">Apply</span> -->
+								<span class="glyphicon glyphicon-ok"></span>
+							</button>
+							<!-- <button class="btn-primary btn-sm" id="removeCoupon" type="submit" name="remove" value="Remove"><span><span>Remove</span></span></button> -->
+	
+							<span class="couponLoading"></span>
+							<div class="couponError alert alert-danger"></div>
+							<div class="couponWarning alert alert-warning"></div>
+							<script type="text/javascript">
+								<#if:no_fbconnect#>
+								var show_fbconnect = false;
+								<#else:no_fbconnect#>
+								var show_fbconnect = true;
+								<#/if:no_fbconnect#>
+							</script>
+	
+	
+							<div class="offerBlurb" style="display:none">
+								<div class="blurbTop"></div>
+								<div class="blurbBody"></div>
+								<div class="blurbBottom"></div>
+							</div>
+							<#tag:generated_invoices /#>
+						</form>
+						<div class="hg-gatorcsh-msg">
+							<div class="hg-amount-to-get"></div>
+							<div class="hg-amount-to-have">
+								Your <b>Account</b> balance : <span style="color:#cc0000;"><#tag:curr_sym /#><#tag:available_balance /#></span>
+							</div>
+						</div>
+					</div>                  
+				</div>
+				<div class="emptyCartWrp">
+					<p class="txt">Your cart is empty. We are redirecting you to the homepage...</p>
+					<p class="loader"></p>
+				</div>
+			</div>
+			<div class="sectionWrp login-signup"> <!-- addClass 'userSet' if user is set && addClass 'signup' to show signup section -->
+				<p class="title hidden-xs" style="cursor:default"><span class="check"><img src="/ui/hostgator/themes/MinimalGreen/images/check_step1.png"></span> <!-- <span class="txt">Sign In</span> --> <span class="useremail"></span> <a href="/login.php?action=signout" class="logout" >Logout</a></p>
+				<div class="contentBlock login">
+					<#include:misc/customer/login.html /#>
+				</div>
+			</div>
+			<div class="sectionWrp paymentOptions">
+				<p class="title hidden-xs"><span class="check hidden">3.</span><span class="txt">Payment Options</span> <span class="edit">edit</span></p>
+				<div class="contentBlock payment">
+					<#tag:customer_details /#>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="footer">
+		<div class="footer-wrapper container">
+			<div class="cart-footer">
+				<div class="cart-footer-img">
+					<img src="/ui/hostgator/themes/MinimalGreen/images/support_img.png" alt="24x7 Support">
+				</div>
+				<div class="cart-footer-txt">24x7 <span class="hg-brk">Support</span></div>
+			</div>
+			<div class="cart-footer">
+				<div class="cart-footer-img">
+					<img src="/ui/hostgator/themes/MinimalGreen/images/gurantee.png" alt="45-day Guarantee">
+				</div>
+				<div class="cart-footer-txt">45-day <span class="hg-brk">Guarantee</span></div>
+			</div>
+			<div class="cart-footer">
+				<div class="cart-footer-img">
+					<img src="/ui/hostgator/themes/MinimalGreen/images/uptime_gurantee.png" alt="99.9% Uptime">
+				</div>
+				<div class="cart-footer-txt">99.9% <span class="hg-brk">Uptime</span></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Model -->
+	<div id="contact_list_modal" class="modal fade">
+		<div class="moda-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> -->
+					<h4 class="modal-title">Additional Contact Information</h4>
+				</div>
+				<div class="modal-body">
+					<div class="model-twocols">
+						<a class="modal_close close_contact_list_modal" href="/checkout.php#">Close [x]</a>
+	
+						<!-- Tabs list -->
+						<div class="tabs-nav lfloat" id="tab-nav">
+							<ul>
+								<li id="tab1" class="first active-tab" style="display: none;"><span class="ic-set ic-user"></span>View/Change Contact Information</li>
+								<li class="vertical-grd"></li>
+							</ul>
+						</div>
+						<!-- /Tabs list -->
+						<!-- Tab Content -->
+						<div class="addNewContactWrap" style="display: block;">
+	
+							<!-- Content -->
+							<div id="tab1-cont" class="tab-filler">
+								<!-- <p id="contact_description"></p> -->
+								<div class="view-form with-line txt-align" id="domain_contact_details" >
+	
+								</div>
+								<br>
+								<div class="btn-wrp" id="contact_selection_buttons">
+									<a href="#" class="ui-btn-green use_this_information" style="margin-left: 50px;">Use this information</a>
+									<!-- <a href="#" class="ui-button" class="list_contact_button" style="margin-left: 53px;">Change Contact</a> -->
+								</div>
+								<div class="div-spacer"></div>
+	
+							</div>
+						</div>
+						<!-- / -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="modal_cod" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h1 class="modal-title">Oops! There's been some trouble completing your online transaction.</h1>
+				</div>
+				<div class="modal-body">
+					<p id="payment_error_message" class="alert alert-danger" style="display: none;"></p>
+					<p class="title">Would you like to:</p>
+					<div class="cod-content">
+						<div class="payonline cod_modal_close">
+							<img src="/getImage.php?src=img-payonline.png" />
+							<p>TRY PAYING ONLINE<br/>AGAIN</p>
+						</div>
+						<div class="paycod try_again_cod">
+							<img src="/getImage.php?src=img-paycod.png" />
+							<p>PAY VIA CASH ON DELIVERY<br/><small>(AT NO EXTRA COST)</small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Model -->
+	
+	<!-- Discount on FB Like start -->
+	<div id="facebook_modal_wrapper" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="facebook_like_modal" class="">
+						<p class="fb_modaltxt">
+							<b>Like us on</b> <em>Facebook</em> to get <b>huge discounts</b><br/>
+							and win <b>awesome prizes!</b>
+							<a href="#" onclick="closeModal('facebook_modal_wrapper'); return false;" class="modal_close">Close [x]</a>
+						</p>
+						<div class="fb-like" data-href="https://www.facebook.com/BigRockIsSocial" data-send="false" data-width="400" data-show-faces="true"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Discount on FB Like end -->
+	
+	<!-- Discount on twitter -->
+	<div class="modal fade" id="twitter_modal_wrapper">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="twitter_like_modal">
+						<div class="twitter_modaltxt">
+							<span class="close-wrapper"><a onclick="closeModal('twitter_modal_wrapper'); return false;" href="#">Close [x]</a></span>
+	
+							Follow <em>@BigRock</em> on <b><em>Twitter</em></b><br>
+	
+							to get <b>huge discounts</b> and win <b>awesome prizes!</b>
+	
+						</div>
+						<div class="btn-wrapper">
+							<a href="/twitter/follow.php" id="follow_br_twitter">
+								<img src="/getImage.php?src=btn-twitter-follow.gif"/>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END: Discount on twitter -->
+	
+	<!-- fb post message -->
+	<div id="facebook_post_message" style="display: none;"><#tag:facebook_message /#></div>
+	<div id="facebook_post_description" style="display: none;">BigRock helps you get a great website in minutes. Visit www.bigrock.com to learn more</div>
+	
+	<div id="domainSelectOverlay" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div id="couponDomainSelect" class="modal_content">
+						<h2 class="HeadingInactive">Select a Domain Name:</h2>
+						<p>Please select a domain to associate your free products to:</p>
+						<select id="domainSelect"></select>
+						<button type="button" class="btn btn-primary" id="domainSelectSubmit" value="Confirm">Confirm &#187;</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="facebookOverlay" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="wide_modal modal_content" id="connect_facebook">
+						<h1 class="hosting-modal-title">You need to <strong>Connect with Facebook</strong> to use this coupon</h1>
+						<div class="hosting-modal-body">
+							<div class="facebook-header">
+								<p><strong>Offer Description:</strong></p>
+								<p class="facebook-connect-description"></p>
+							</div>
+							<div class="facebook-footer">
+								<a href="#" class="facebook-connect-cancel">&laquo Cancel</a>
+								<div class="connect-btn-wrapper">
+									To continue, login into facebook
+									<a href="#" class="facebook-connect">Connect with Facebook</a>
+								</div>
+								<br class="clear">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--13-10-16 added-->
+	<!-- <div id="facebookOverlay" class="modal-1 fade-1"    style="display: none;">
+		<div class="modal-dialog-1">
+			<div class="modal-content-1">
+				<div class="modal-body-1">
+					<div class="wide_modal modal_content" id="connect_facebook">
+						<h1 class="hosting-modal-title">You need to <strong>Connect with Facebook</strong> to use this coupon</h1>
+						<div class="hosting-modal-body">
+							<div class="facebook-header">
+								<p><strong>Offer Description:</strong></p>
+								<p class="facebook-connect-description">* 5% off on all Domain name Registrations (e.g. .com, .net, .org)<br>* 10% off on all Web Hosting, Website Design, Email Hosting, and Digital Certificate packages<br>Offer valid for 1st year of Registrations only.</p>
+							</div>
+							<div class="facebook-footer">
+								<a href="#" class="facebook-connect-cancel">&laquo Cancel</a>
+								<div class="connect-btn-wrapper">
+									To continue, login into facebook
+									<a href="#" class="facebook-connect">Connect with Facebook</a>
+								</div>
+								<br class="clear">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- end: fb post message -->
+	
+	<!-- start: privacy protect modal -->
+	<div id="modal_privacy_protect" class="modal fade modal-wrapper privacy-protect-modal free-addons">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h3 class="modal-title">Why Privacy Protect?</h3>
+				</div>
+				<div class="modal-body">
+					<div id="privacy-protect-modal-wrap" class="modal_content">
+						<!--<span class="close" onclick="closeModal('modal_free_addons');"></span>-->
+						<div class="modal_content_text">
+							<p>Protect yourself from identity theft, spammers and telemarketers. Without <strong>Privacy Protection</strong> for your domain name, your contact information is public and visible to anyone who does a WHOIS check on your domain name.</p>
+							<p><strong>Privacy Protection</strong> ensures that the contact information associated with your domain name is not visible publicly. It does this by replacing all your publicly visible contact details with <strong>alternate contact information</strong>, as shown in the screenshot below:</p><br/>
+							<p><img src="/ui/hostgator/themes/MinimalGreen/images/privacy-protect-modal.jpg" class="img-responsive"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- end: privacy protect modal -->
+	
+	<!-- start: free addons modal -->
+	<div id="modal_free_addons" class="modal fade modal-wrapper privacy-protect-modal free-addons">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h3 class="modal-title">What do I get?</h3>
+				</div>
+				<div class="modal-body">
+					<div id="addons-modal-wrap" class="modal_content">
+						<!--<span class="close" onclick="closeModal('modal_free_addons');"></span>-->
+						<div class="modal_content_text">
+							<p>We have always strived to provide quality service at the best prices possible. The following services are extremely handy when managing your domain & we're offering them <strong>FREE</strong> of charge:</p>
+							<ul>
+								<li class="email">2 Email Accounts - <span>you@<span id="addon-tld">yourdomain.net</span></span></li>
+								<li class="domain"> Domain Forwarding</li>
+								<li class="url">URL Masking</li>
+								<li class="dns">DNS Management</li>
+								<li class="theft">Domain Theft Protection</li>
+								<li class="bulk">Bulk Tools</li>
+								<li class="panel" style="margin-bottom: 0px;border: 0px;box-shadow: none;">Easy-to-use Control Panel</li>
+								<li class="support">24/7 Local Support</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end: free addons modal -->
+	<!-- Reuest Form -->
+	<div class="modal fade hidden-xs" id="ouibounce-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content hg-form-body" style="background-color: #A6D0EE;border-top: 9px solid #005793;">
+			<button type="button" class="close hg-close-optin" data-dismiss="modal" style="position: relative;z-index: 1;">
+				<img src="https://www.hostgator.in/getImage.php?src=myUploadedImages/closeoptin.png">
+			</button>
+			 <div class="modal-body" style="padding-top: 10px;">
+				<div class="text-center hg-form-title-cart">Need help? We're here to assist you!</div>
+				<div class="text-center hg-form-subtitle-cart">Fill in the details and we'll get in touch</div>
+				<div class="row hg-row">
+					<div class="col-sm-5">
+						<div class="text-center"><img src="/ui/resellerdata/120000_149999/147142/supersite2/hostgator/themes/MinimalGreen-MyTheme/images/myUploadedImages/thumbsup31_new.png" style="width:200px"></div>
+					</div>
+					<div class="col-sm-7" style="padding-top:15px;">
+						<form id="hg-dedi-customerform">
+							<input type="hidden" name="action" value="send_custom_mail">
+							<input type="hidden" name="mail_type" value="cartcustomerenquiry">
+							<div class="form-group">
+								<input type="text" class="form-control" id="name" placeholder="Enter Your Name" name="mail_data[name]">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="phonenumber" placeholder="Enter Your Phone Number" name="mail_data[phonenumber]">
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control" id="emailaddress" placeholder="Enter Your Email" name="mail_data[emailaddress]">
+							</div>
+						  <button type="button" class="btn btn-primary btn-lg hg-form-submit">Submit</button>
+						  <small style="position: relative;display: block;top: 6px;font-size: 10px;text-align: left;">*Please note, our team will contact you once the form is submitted. </small>
+						  <div class="hg-form-ty">Thank you for submitting the form</div>
+						</form>
+					</div>                    
+				</div>
+			</div>
+		</div>
+			<div class="modal-content hg-ty-modal" style="display:none;background-color: #A6D0EE;border-top: 9px solid #005793;">
+			<div class="modal-body hg-ty-moda-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<div><img src="/ui/resellerdata/120000_149999/147142/supersite2/hostgator/themes/MinimalGreen-MyTheme/images/myUploadedImages/snappyty.png"></div>
+					</div>
+					<div class="col-sm-6">
+						<div class="hg-ty-text">Thank you!</div>
+						<div class="hg-ty-text2">For submitting the form</div>
+						<div class="hg-btn-modal">
+							<button type="button" class="btn btn-primary close hg-close-ty-modal" data-dismiss="modal">
+								Back to Cart
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div> 
+	  </div>
+	</div>
+	<!-- Ends Reuest Form -->
+	
+	<script type="text/javascript" src="/ui/hostgator/en/js/domains_cart.js"></script>
+	<script type="text/javascript" src="/ui/hostgator/en/js/ajaxQueue.min.js"></script>
+	<script type="text/javascript" src="/twitter/jquery.oauthpopup.js"></script>
+	<script type="text/javascript" src="/ui/hostgator/en/js/coupon_code_cart.js"></script>
+	<script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
+	<script type="text/javascript" src="/ui/hostgator/en/js/swiper.min.js"></script>
+	<!-- Request Form JS-->
+	<script type="text/javascript">$(document).ready(function(){if($(window).width()>768){(function(){$("html").on("mouseout.ouibounce",function(){function e(){$("#ouibounce-modal").modal();
+	try{
+	//CART VALUES FOR OPTIN
+	$.ajax({
+		  url: '/content.php?action=get_cart',
+		  dataType: 'json',
+		  method: 'GET',
+		  success: function (data){
+			  var productData = data.items;
+			  var productListOptin = [];
+			  console.log(data.items.length);
+			  $.each(data.items, function(key, value) {
+				  $('#hg-dedi-customerform').append('<div class="form-group hidden"><input type="product" class="form-control" value=' + value.product_key + ' name="mail_data\[product'  + key +'\]"></div>');
+				  var productModal = {}
+				  productModal['name'] = value['product_key'];
+				  productModal['id'] = value['product'];
+				  productModal['price'] = value['totalprice'];
+				  productModal['brand'] = 'HostGator';
+				  productModal['category'] = value['product_key'];
+				  productModal['quantity'] = '1';
+			  });
+			  
+				
+				  
+				}
+			});
+		  }catch(e){} 
+	}
+	return function(t){if(!(t.clientY<20))return;e();$("html").off("mouseout.ouibounce")}}())})();$("head").prepend('<style type="text/css">.modal-open{overflow:hidden}.modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1040;display:none;overflow:auto;overflow-y:scroll}.modal.fade .modal-dialog{-webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);transform:translate(0,-25%);-webkit-transition:-webkit-transform .3s ease-out;-moz-transition:-moz-transform .3s ease-out;-o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out}.modal.in .modal-dialog{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0)}.modal-dialog{position:relative;z-index:1050;width:auto;margin:10px}.modal-content{position:relative;background-color:#fff;border:1px solid #999;border:1px solid rgba(0,0,0,0.2);border-radius:6px;outline:0;-webkit-box-shadow:0 3px 9px rgba(0,0,0,0.5);box-shadow:0 3px 9px rgba(0,0,0,0.5);background-clip:padding-box}.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1030;background-color:#000}.modal-backdrop.fade{opacity:0;filter:alpha(opacity=0)}.modal-backdrop.in{opacity:.5;filter:alpha(opacity=50)}.modal-header{min-height:16.428571429px;padding:15px;border-bottom:1px solid #e5e5e5}.modal-header .close{margin-top:-2px}.modal-title{margin:0;line-height:1.428571429}.modal-body{position:relative;padding:20px;min-height:300px}.modal-footer{padding:19px 20px 20px;margin-top:15px;text-align:right;border-top:1px solid #e5e5e5}.modal-footer:before,.modal-footer:after{display:table;content:" "}.modal-footer:after{clear:both}.modal-footer:before,.modal-footer:after{display:table;content:" "}.modal-footer:after{clear:both}.modal-footer .btn+.btn{margin-bottom:0;margin-left:5px}.modal-footer .btn-group .btn+.btn{margin-left:-1px}.modal-footer .btn-block+.btn-block{margin-left:0}@media screen and (min-width:768px){.modal-dialog{width:600px;margin:30px auto}.modal-content{-webkit-box-shadow:0 5px 15px rgba(0,0,0,0.5);box-shadow:0 5px 15px rgba(0,0,0,0.5)}}.btn{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:normal;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}.btn-primary{color:#fff;background-color:#428bca;border-color:#357ebd}.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary{color:#fff;background-color:#3276b1;border-color:#285e8e}</style>');+function(e){"use strict";var t=function(t,n){this.options=n;this.$element=e(t);this.$backdrop=this.isShown=null;if(this.options.remote)this.$element.load(this.options.remote)};t.DEFAULTS={backdrop:!0,keyboard:!0,show:!0};t.prototype.toggle=function(e){return this[!this.isShown?"show":"hide"](e)};t.prototype.show=function(t){var n=this;var r=e.Event("show.bs.modal",{relatedTarget:t});this.$element.trigger(r);if(this.isShown||r.isDefaultPrevented())return;this.isShown=!0;this.escape();this.$element.on("click.dismiss.modal",'[data-dismiss="modal"]',e.proxy(this.hide,this));this.backdrop(function(){var r=e.support.transition&&n.$element.hasClass("fade");if(!n.$element.parent().length){n.$element.appendTo(document.body)}
+	n.$element.show();if(r){n.$element[0].offsetWidth}
+	n.$element.addClass("in").attr("aria-hidden",!1);n.enforceFocus();var i=e.Event("shown.bs.modal",{relatedTarget:t});r?n.$element.find(".modal-dialog").one(e.support.transition.end,function(){n.$element.focus().trigger(i)}).emulateTransitionEnd(300):n.$element.focus().trigger(i)})};t.prototype.hide=function(t){if(t)t.preventDefault();t=e.Event("hide.bs.modal");this.$element.trigger(t);if(!this.isShown||t.isDefaultPrevented())return;this.isShown=!1;this.escape();e(document).off("focusin.bs.modal");this.$element.removeClass("in").attr("aria-hidden",!0).off("click.dismiss.modal");e.support.transition&&this.$element.hasClass("fade")?this.$element.one(e.support.transition.end,e.proxy(this.hideModal,this)).emulateTransitionEnd(300):this.hideModal()};t.prototype.enforceFocus=function(){e(document).off("focusin.bs.modal").on("focusin.bs.modal",e.proxy(function(e){if(this.$element[0]!==e.target&&!this.$element.has(e.target).length){this.$element.focus()}},this))};t.prototype.escape=function(){if(this.isShown&&this.options.keyboard){this.$element.on("keyup.dismiss.bs.modal",e.proxy(function(e){e.which==27&&this.hide()},this))}else if(!this.isShown){this.$element.off("keyup.dismiss.bs.modal")}};t.prototype.hideModal=function(){var e=this;this.$element.hide();this.backdrop(function(){e.removeBackdrop();e.$element.trigger("hidden.bs.modal")})};t.prototype.removeBackdrop=function(){this.$backdrop&&this.$backdrop.remove();this.$backdrop=null};t.prototype.backdrop=function(t){var n=this;var r=this.$element.hasClass("fade")?"fade":"";if(this.isShown&&this.options.backdrop){var i=e.support.transition&&r;this.$backdrop=e('<div class="modal-backdrop '+r+'" />').appendTo(document.body);this.$element.on("click.dismiss.modal",e.proxy(function(e){if(e.target!==e.currentTarget)return;this.options.backdrop=="static"?this.$element[0].focus.call(this.$element[0]):this.hide.call(this)},this));if(i)this.$backdrop[0].offsetWidth;this.$backdrop.addClass("in");if(!t)return;i?this.$backdrop.one(e.support.transition.end,t).emulateTransitionEnd(150):t()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass("in");e.support.transition&&this.$element.hasClass("fade")?this.$backdrop.one(e.support.transition.end,t).emulateTransitionEnd(150):t()}else if(t){t()}};var n=e.fn.modal;e.fn.modal=function(n,r){return this.each(function(){var i=e(this);var s=i.data("bs.modal");var o=e.extend({},t.DEFAULTS,i.data(),typeof n=="object"&&n);if(!s)i.data("bs.modal",s=new t(this,o));if(typeof n=="string")s[n](r);else if(o.show)s.show(r)})};e.fn.modal.Constructor=t;e.fn.modal.noConflict=function(){e.fn.modal=n;return this};e(document).on("click.bs.modal.data-api",'[data-toggle="modal"]',function(t){var n=e(this);var r=n.attr("href");var i=e(n.attr("data-target")||r&&r.replace(/.*(?=#[^\s]+$)/,""));var s=i.data("modal")?"toggle":e.extend({remote:!/#/.test(r)&&r},i.data(),n.data());t.preventDefault();i.modal(s,this).one("hide",function(){n.is(":visible")&&n.focus()})});e(document).on("show.bs.modal",".modal",function(){e(document.body).addClass("modal-open")}).on("hidden.bs.modal",".modal",function(){e(document.body).removeClass("modal-open")})}(jQuery)}});</script>
+    <!-- Request form js-->
+    
+    <script>
+        $(document).ready(function() {
+            $(".chat-no a").on("click", function(e) {
+                e.preventDefault();
+                $(".embeddedServiceHelpButton .helpButton .uiButton").trigger("click");
+            });
+        });
+    </script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$( ".hg-form-submit" ).click(function() {  
+			try{
+				ga('send', 'event', 'Submit Button', 'Cart page exit intent popup', 'Click on Submit');
+			}catch(e){}         
+			validateForm(); 
+		});  
+		$('.hg-close-optin').click(function(){
+			try{
+				ga('send', 'event', 'Close form', 'Cart page exit intent popup', 'Click on Close');
+			}catch(e){}
+		}); 
+		$('.hg-close-ty-modal').click(function(){
+			try{
+				ga('send', 'event', 'Close form', 'Cart page exit intent popup', 'Click on Back to Cart');
+			}catch(e){}
+		});   
+		$('.hg-form-ty').hide();
+		function validateForm(){
+			var nameReg = /^[A-Za-z]+$/;
+			var numberReg =  /^[0-9]+$/;
+			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	
+			var fullname = $("#name").val();
+			var phone = $("#phonenumber").val();
+			var emailadd = $("#emailaddress").val();
+	
+			var inputVal = new Array(fullname, phone, emailadd);
+			var inputMessage = new Array("name", "mobile number", "email address");
+	
+			$('.error').hide();
+	
+			if(fullname == ""){
+				$('#name').after('<span class="error"> Please enter your ' + inputMessage[0] + '</span>');
+			}
+			else if(!numberReg.test(phone)){
+				$('#phonenumber').after('<span class="error"> Please enter a valid number</span>');
+			} 
+			else if(inputVal[1].length>10){
+				$('#phonenumber').after('<span class="error"> Please enter a valid number</span>');
+			} 
+			else if(inputVal[2] == ""){
+				$('#emailaddress').after('<span class="error"> Please enter your ' + inputMessage[2] + '</span>');
+			} 
+			else if(!emailReg.test(emailadd)){
+				$('#emailaddress').after('<span class="error"> Please enter a valid email address</span>');
+			}
+			else { 
+				submitForm();
+			} 
+		} 
+	});
+	function submitForm() {
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			data: $('form#hg-dedi-customerform').serialize(),
+			url: "/content.php",
+			success: function(response) {
+				if(response.status == 'success'){
+					$('.hg-form-ty').show();
+					$('.hg-form-submit').hide();
+					$('input.form-control').val(''); 
+					$('.hg-ty-modal').show();            
+					$('.hg-form-body').hide();  
+
+
+			        dataLayer.push({
+			            "event":"Exit intent popup submitted"			         
+			        });
+				    
+                                          
+				}
+				else{
+					alert("faliure");                       
+				}
+			}
+		});
+	}
+
+    $(window).on('load', function() {
+        try{
+            var productName = [];
+            $('.CartItemRow.others').each(function(){
+                if(($(this).attr('class').indexOf('hosting') > -1) || ($(this).attr('class').indexOf('cloudsites') > -1) || ($(this).attr('class').indexOf('managedservers') > -1) || ($(this).attr('class').indexOf('virtualserver') > -1) || ($(this).attr('class').indexOf('dedicatedservers') > -1)){
+                        var hostProduct =$(this).find('span.nameWrp').text();
+                        var hostTenure= $(this).find('.update_item_class').val().split('_')[0];
+                        productName.push(hostProduct + "_" + hostTenure);
+                    }
+                });
+                var DomainProductName = [];
+                $('.CartItemRow.domain').each(function(){
+                if($(this).attr('class').indexOf('domain') > -1){
+                    var DomainProduct =$(this).find('.hg-cart-domain-name').text();
+                    var DomainProductTenure= $(this).find('.update_item_class').val().split('_')[0];
+                    DomainProductName.push(DomainProduct + "_" + DomainProductTenure);
+                }
+            });
+            if((DomainProductName.length > 0) && productName.length > 0){
+                var currentTime = new Date();
+                    currentTime.setTime(currentTime.getTime() + 1 * 3600 * 1000);
+                    document.cookie = "optinValue=" + productName + "," + DomainProductName + "; expires=true; expires=" + currentTime.toUTCString() + "; path=/";
+                }
+            else if(productName){
+                var currentTime = new Date();
+                    currentTime.setTime(currentTime.getTime() + 1 * 3600 * 1000);
+                    document.cookie = "optinValue=" + productName +"; expires=true; expires=" + currentTime.toUTCString() + "; path=/";
+                }else if(DomainProductName){
+                var currentTime = new Date();
+                    currentTime.setTime(currentTime.getTime() + 1 * 3600 * 1000);
+                    document.cookie = "optinValue=" + DomainProductName +"; expires=true; expires=" + currentTime.toUTCString() + "; path=/";
+                }
+               
+            }
+            catch(e){}
+    })
+    </script>
+	<!-- Ends Request Form JS-->
+	<script type="text/javascript" >
+	
+	var currency = "<#tag:curr_sym /#>";
+	
+	function fetch_contact_list(){
+		$('#contact_selection_buttons').hide();
+		$('#contact_description').html('');
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		$.ajax({
+			beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="http://cdnassets.com/getImage.php?url=supersite2.com&src=30preloader.gif"></div>');},
+			url:'contacts.php',
+			type: 'POST',
+			data: {'action':'ajax_list','product_key':product_key,'page_no':1},
+			success: function(data){
+				$('#domain_contact_details').html(data);
+				$('#domain_contact_details .table-data td a').removeAttr('href').removeAttr('onclick');
+				$('#content-wrapper').css('width','auto');
+				$('.class_new_contact').removeAttr('onclick').removeAttr('href');
+			}
+		});
+	}
+	
+	function is_any_action_pending(){
+		//if ( $('#action_required_table tr').length < 2){
+			//$('#additional_contact_details').remove();
+			//$('div.intro-text').removeAttr('style');
+			//return false;
+		//}
+		return true;
+	}
+	
+	function remove_action(action_product_key){
+		//$('.'+action_product_key+'_action').remove();
+		$('.'+action_product_key+'_action').find(".tic").show();
+		$('.'+action_product_key+'_action').find(".ui-btn-green").hide();
+		$("#tld-action-btn-main #tld-action-btn").removeClass("disabled");
+		$("#tld-action-btn-main #tld-action-btn").removeAttr("disabled");
+		$('#tld-action-btn').on('click', function(){
+			$('.sectionWrp.login-signup').addClass('completed').removeClass('open air');
+			Cookies.erase('addn_info_req');
+			$('.sectionWrp.paymentOptions').addClass('open');
+            if($(window).width()<768) {
+                $('body').addClass('payment-options-xs');
+            }
+		});
+		is_any_action_pending();
+	}
+	
+	function remove_action_domain(action_product_key, domain){
+		domain = domain.replace('_domain','');
+		$('.'+action_product_key+'_action:contains("'+domain+'")').remove();
+		is_any_action_pending();
+	}
+	
+	function openContactSettingsModal(){
+		$('#advanced_setting_domain').html(active_domain.replace('_domain',''));
+		$('#contact_selection_buttons').hide();
+		$("#body-wrapper").append($("#contact_list_modal"));
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		$('#contact_description').html('We will use the following contact details for this domain');
+		toggle_lightbox2(true, 'contact_list_modal');
+		getSelectedContact();
+	}
+	
+	function getSelectedContact(){
+		$.ajax({
+			beforeSend: function(){
+				$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');
+			},
+			url: 'contacts.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {'action' : 'get_domain_contact_details', 'active_domain': active_domain, 'product_key': product_key},
+			success: function(response){
+				if(typeof(response.nextaction) != 'undefined'){
+					eval(response.nextaction);
+				} else {
+					$('#domain_contact_details').html(response.data);
+					contact_id = response.contact_id;
+					$('#domain_contact_details input[name=domain_name]').val(active_domain);
+					$('#domain_contact_details input[name=contact_id]').val(contact_id);
+				}
+			}
+		});
+	}
+	
+	function toggle_lightbox2(show, id)
+	{
+		lightbox_counter2 += show?1:-1;
+		lightbox_counter2 = (lightbox_counter2<0)?0:lightbox_counter2;
+		if(lightbox_counter2 > 0){
+			showModal(id);
+		}else{
+			closeModal(id);
+		}
+	}
+	
+	function close_contact_list_modal(){
+		$('#domain_contact_details').off('click').html("");
+		$('.info_div').remove();
+		//$('#contact_list_modal').hide();
+		$('#contact_list_modal').css('display', 'none');
+		//$('#contact_list_modal').removeClass('in');
+		//$('.modal-backdrop.fade').removeClass('in');
+		$('#contact_list_modal').modal('toggle');
+		$("select").show();
+	}
+	
+	function additional_details_saved(){
+		remove_action(product_key);
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		close_contact_list_modal();
+		//continue_to_payment().show_next();
+	}
+	
+	function show_newcheckout_form_errors(response){
+		$('#submit_extra_details_button').text('Save Details');
+		$("#contact_show_error").show();
+		$("#contact_error_lists").html(response.data);
+	}
+	
+	function fetch_new_contact_form(){
+		$('#contact_description').html('');
+		current_html = $('#contact_search_result').html();
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		element_id = 'contact_list';
+		$.ajax({
+			beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+			'url': 'contacts.php',
+			'type': 'POST',
+			'data': {'action':'add_new_contact','domain_name':active_domain,'product_key':product_key},
+			success:function(data){
+				$('#domain_contact_details').html(data);
+				$('#domain_contact_details input[name="domain_name"]').val(active_domain);
+				$('#btnAdd').remove();
+				$('#domain_contact_details input[type=text]').val('');
+				$('.input-help').html('');
+			}
+		});
+	}
+	
+	change_welcome_message_on_error = false;
+	show_cod_on_error = false;
+	
+	<#if:change_welcome_message_on_error#>
+	change_welcome_message_on_error = true;
+	<#/if:change_welcome_message_on_error#>
+	
+	<#if:show_cod_on_error#>
+	show_cod_on_error = true;
+	<#/if:show_cod_on_error#>
+	
+	$(document).ready(function (){
+	
+		<#if:hide_checkout_error_msg#>
+		error_msg = "<#tag:pg_error_message /#>";
+		$('div.error').hide();
+		<#/if:hide_checkout_error_msg#>
+	
+		$('header, footer, .top-bar').attr('style', 'display: none !important;');
+	
+		$('.CartItemRow').each(function(){
+			var domainPrice = $('select option:selected', $(this)).val();
+			var nextOptions = $('select option:selected', $(this)).next().val();
+			var optionTxt = ($('select option:selected', $(this)).text()).toLowerCase();
+			var tenureMeasure = "years";
+			var savings = 0;
+			if(optionTxt.indexOf('month') > -1 ){
+				tenureMeasure = "months";
+			}
+			if (domainPrice) {
+	
+			domainPrice = domainPrice.split('_');
+			}
+	
+			if(nextOptions != undefined){
+				nextOptions = nextOptions.split('_');
+				savings = parseFloat(nextOptions[2]);
+				var nextTenure = parseInt(nextOptions[0]);
+				//$('.SavingsShow', $(this)).fadeIn();
+			}else{
+				//$('.SavingsShow', $(this)).fadeOut();
+			}
+	
+	
+			if(savings!==0 && $(this).attr('id').search('enterpriseemail') == -1){
+				//$('.SavingsShow', this).html("Buy for "+ nextTenure + " " + tenureMeasure + " and save " + round_decimals(savings, 2) + "%");
+			}
+			var tld = $('.setting_contact_class', $(this)).attr('name');
+			if(tld == 'thirdleveldotuk'){
+				$('.ic-info', $(this)).show();
+				$('.ic-info .classic', $(this)).html('Changing contact details is a billable action for .CO.UK domains. Please confirm the contact details before proceeding.');
+			}
+			if(tld == 'dotcn'){
+				$('.ic-info', $(this)).show();
+				$('.ic-info .classic', $(this)).html('For .CN domains, modification of the registrant contact is a manual process and requires verification of documents');
+			}
+			if($('.custom_contact_settings', $(this)).attr('actiontype') == 'transfer'){
+				$('.nsprivacyblock',$(this)).remove();
+			}
+			if($('.item_name', $(this)).text() == ''){
+				$('.item_name', $(this)).remove();
+			}
+		});
+	
+		$('.setting_domain_class').click(function(){
+			var active_domain = $(this).parents('tr').attr('id');
+			var product_key = $(this).attr('name');
+			$('#advanced_setting_domain').html(active_domain.replace('_domain',''));
+			$("#body-wrapper").append($("#contact_list_modal"));
+			$('#domain_contact_details').html("<div class='ajaxSpinner'></div>").attr('name', product_key);
+			toggle_lightbox2(true, 'contact_list_modal');
+			$.ajax({
+				beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+				type:'POST',
+				url:'checkout.php',
+				dataType: 'json',
+				data:{'action': 'show_domain_settings','product_key':product_key, 'domain_name':active_domain },
+				success: function(response){
+					$('#domain_contact_details').html(response.data);
+					$('#domain_contact_details #domain_name').val(active_domain);
+				}
+			});
+		});
+	
+		$('.setting_contact_class').click(function(){
+			active_domain = $(this).parents('tr').attr('id');
+			product_key = $(this).attr('name');
+			$('#advanced_setting_domain').html(active_domain.replace('_domain',''));
+			toggle_lightbox2(true, 'contact_list_modal');
+			$('#tab1').trigger('click');
+		});
+	
+		$('.list_contact_button').on('click',fetch_contact_list);
+		 
+		 $( document ).on( "click", '#domain_contact_details .select-contact td a', function() {
+			current_html = $('#contact_search_result').html();
+			$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+			contact_id = $(this).attr('name').replace('contact_', '');
+			$.ajax({
+				beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+				url: 'contacts.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {'action' : 'get_contact_details', 'domain_name': active_domain, 'product_key': product_key, 'contact_id': contact_id},
+				success: function(response){
+					$('#domain_contact_details').html(response.data);
+					$('#contact_description').html('<h3 class="ui-heading2">Contact Information</h3>');
+					contact_id = response.contact_id;
+					$('#domain_contact_details input[name=domain_name]').val(active_domain);
+					$('#domain_contact_details input[name=contact_id]').val(contact_id);
+					$('.list_contact_button').replaceWith('&nbsp;&nbsp;&nbsp;<a class="back_to_contact_list">Back</a>');
+					$('.new_contact_details').show();
+				}
+			});
+		});
+	
+		$('.close_contact_list_modal').on('click',  close_contact_list_modal);
+	
+		function appendToBodyWrapper(id){
+			$("#body-wrapper").append($('#' + id));
+		}
+	
+		if(is_any_action_pending()){
+			$('div.intro-text').css({'background':'#FFFEE1','border':'1px solid #F5C056'});
+		}
+	
+		$('#tab1').click(function(){
+			$('li.active-tab').removeClass('active-tab');
+			$('.tab-filler').css('display', 'none');
+			$('#tab1-cont').css('display', 'block');
+			$(this).addClass('active-tab');
+			$('#contact_selection_buttons').hide();
+			$('#contact_description').html('We will use the following contact details for this domain');
+			$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+			getSelectedContact();
+		});
+	
+		$( document ).on( "click", ".class_new_contact", fetch_new_contact_form);
+	
+		lightbox_counter2 = 0;
+	
+		$("#input_coupon_code").keyup(function() {
+			$('#applyCoupon').show();
+			clearError();
+		});
+	
+	});
+	
+	$('.use_this_contact').on('click', function(){
+		$('#contact_selection_buttons').hide();
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		$.ajax({
+			beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+			'url': 'contacts.php',
+			'type': 'POST',
+			'dataType': 'json',
+			'data': {'action':'associate_contact','domain_name':active_domain,'contact_id':contact_id},
+			success: function(response){
+				if(response.status === 'show_additional_details') {
+					$('#domain_contact_details').html(response.data);
+					$('#domain_contact_details input[name=domain_name]').val(active_domain);
+					$('#domain_contact_details input[name=contact_id]').val(contact_id);
+				}
+				else {
+					$('#contact_description').html("Contact settings have been updated successfully. We will use the following contact details");
+					remove_action_domain(product_key, active_domain);
+					getSelectedContact();
+				}
+			}
+		});
+	});
+	
+	$( document ).on( "click", '.use_this_information', function(){
+		$('#contact_description').html('');
+		$('#contact_selection_buttons').hide();
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		$.ajax({
+			beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+			'url': 'contacts.php',
+			'type': 'POST',
+			'dataType': 'json',
+			'data': {'action':'associate_contact','domain_name':active_domain,'contact_id':contact_id},
+			success: function(response){
+				if(response.status === 'show_additional_details') {
+					$('#domain_contact_details').html(response.data);
+					$('#domain_contact_details input[name=domain_name]').val(active_domain);
+					$('#domain_contact_details input[name=contact_id]').val(contact_id);
+				}
+				else {
+					remove_action_domain(product_key, active_domain);
+					close_contact_list_modal();
+				}
+			}
+		});
+	});
+	
+	$('.back_to_contact_list').on('click', function(){
+		$('#contact_description').html('');
+		$('#domain_contact_details').html("<div class='ajaxSpinner'></div>");
+		$.ajax({
+			beforeSend: function(){$('#domain_contact_details').html('<div style="text-align: center;"><img src="/getImage.php?src=pricing-ajax-loader.gif"></div>');},
+			url: 'contacts.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {'action': 'fetch_contact_container'},
+			success: function(response){
+				$('#domain_contact_details').html(response.data);
+				$('#contact_search_result').html(current_html);
+			}
+		});
+	});
+	
+	$('#search_contact_txt').on('keypress', function(event){
+		if(event.which == 13){
+			$('.search-uibutton').css('background', "url('/getImage.php?src=336.gif') 0 0 no-repeat");
+			search_contact($("#search_contact_txt").val(),$("#contact_type").val(), 1);
+		}
+	});
+	
+	function updatewelcomemessage(){
+		if(change_welcome_message_on_error) {
+			$('#account_summary').html("<p>" +
+					"<strong class='ItemTitle alert alert-danger'>Oops! There's been some trouble completing your online transaction</strong>"+
+					"<br>"+error_msg);
+			scrollTo(0,$('#CartSection_paymentOptions').position().top)
+		}
+	
+		if(show_cod_on_error) {
+			//toggle_lightbox2(true,'modal_cod');
+			$('#modal_cod').modal('show');
+			$('#payment_error_message').text(error_msg);
+			$('#modal_cod').on('hide.bs.modal', function(){
+				scrollTo(0,$('#CartSection_paymentOptions').position().top)
+			});
+			$('.try_again_cod').click(function(){
+				$('#modal_cod').modal('hide');
+				payment_cod();
+			});
+		}
+	}
+	</script>
+	<!-- new js -->
+	<script type="text/javascript">
+		$(function(){
+			//change header layout
+			var newHtml = '<ul class="contactdetails">' +
+					'<li class="first"><b>Questions?</b></li>' +
+					'<li class="second">1-800-266-7625</li>' +
+					'<li class="third"><b>or</b></li>' +
+					'<li class="last"><a target="_blank" href="https://secure.livechatinc.com/licence/g10528087_5/v2/open_chat.cgi?group=5&unique_groups=1">Chat With Us</a></li>' +
+					'</ul>'
+			$('#help-line').html('').addClass('cart-header').html(newHtml).fadeIn('slow');
+		});
+	
+		$(document).ready(function(){
+			//show customer name & email where required (add class 'userSet' to 'sectionWrp')
+				setUser_name_email();
+	
+			if(Cookies.addn_info_req === true){
+				$('.sectionWrp.login-signup').addClass('air');
+			}
+	
+			if($('#additional_contact_details').length > 0){
+				continue_to_payment().show_add_info();
+			}
+	
+			//show / hide sections
+			$('.sectionWrp .title').on('click', function(e){
+				var thisSection = $(this).parents('.sectionWrp');
+				//var hasCompleted = thisSection.hasClass('completed');
+	
+				//check if prevs section is complete
+				if(thisSection.hasClass('completed') && !thisSection.hasClass('loggedin')){
+					thisSection.removeClass('completed');
+					$('.sectionWrp.open').removeClass('open');
+					thisSection.addClass('open');
+				}
+				return false;
+			});
+	
+			$(".sectionWrp .title .logout").click(function(e) {
+				e.stopPropagation();
+			});
+	
+			// GET COOKIE
+			function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+			}
+  
+			//summary btn action
+			$('#summary-btn').on('click', function(){
+                $('body').addClass('account-revamped-xs');
+				// Remaining balance calculation
+				if ($(".hg-current-balance").length > 0) {
+					var currentBalance = $('.hg-current-balance').text();
+					//currentBalance = currentBalance.split(currency)[1].replace(/,/g ,"");
+					currentBalance = currentBalance.split('. ')[1].replace(/,/g ,"");
+	
+					var totalAmount = $('#totalpayable2').text();
+					//totalAmount = totalAmount.split(currency)[1].replace(/,/g ,"");
+					totalAmount = totalAmount.split('.')[1].replace(/,/g ,"");
+	
+					var remaingBalance = totalAmount - currentBalance;
+					$('.hg-remaining-balance').html(currency + remaingBalance);
+				}
+
+
+				/*--------------*/
+				//alert($('#additional_contact_details').length);
+				//var sectionWrp = $(this).parents('.sectionWrp');
+				$('.sectionWrp.summary').addClass('completed').removeClass('open');
+				$('.finalprice,#totalpayable2,#totalpayable2-mobile').html(currency+$('#totalpayable').text());
+				var nextSiblingHasCompleted = $('.sectionWrp.login-signup').hasClass('loggedin') && !($('.sectionWrp.login-signup').hasClass('air'));
+				if(nextSiblingHasCompleted){
+					/*HGI .NET NUP promo */
+					/*if((Cookies.coupon_code) == 'HGINET20') {
+					    $('#payment_offline').hide();
+					} else {
+						 $('#payment_offline').show();
+					}*/
+					/*-------------------*/
+					$('.sectionWrp.paymentOptions').addClass('open');
+                    if($(window).width()<768) {
+                        $('body').addClass('payment-options-xs');
+                    }
+					$('.sectionWrp.login-signup').addClass('completed');
+					var email = $('.login-signup.loggedin span.useremail').text();
+					if(email !== ""){
+						check_for_customer_tos(email);
+					}
+					// Already logged in GTM
+					try{
+						//GTM dataLayer
+						dataLayer.push({
+							"event": "EEcheckout",
+							"ecommerce": {
+							"checkout": {
+								"actionField": {
+								"step": 2,
+								"option": "Already Logged In"
+								}
+							}
+							}
+						});  
+					}
+					catch(e){}
+				}else{
+					$('.sectionWrp.login-signup').addClass('open');
+					$('html, body').animate({
+						scrollTop: $("#maincontent").offset().top
+					}, 500);
+				}
+				if ($("body").hasClass("IN")) {
+			   //GTM dataLayer
+			   $.ajax({
+				  url: '/content.php?action=get_cart',
+				  dataType: 'json',
+				  method: 'GET',
+				  success: function (data){
+					  var productData = data.items;
+					  var productListGTM = [];
+					  $.each(data.items, function(key, value) {
+						  var productModal = {}
+						  productModal['name'] = value['product_key'];
+						  productModal['id'] = value['product'];
+						  productModal['price'] = value['totalprice'];
+						  productModal['brand'] = 'HostGator';
+						  productModal['category'] = value['product_key'];
+						  productModal['quantity'] = '1';
+						  productListGTM.push(productModal);
+					  });
+					  try{
+						if((document.cookie.indexOf('coupon_code=') > -1)){
+							//when coupon cookie is present
+							var CouponCookie = getCookie("coupon_code");
+							dataLayer.push({
+								"event": "EEcheckout",
+								"ecommerce": {
+									"checkout": {
+									"actionField": {
+										"step": 1,
+										"option": "Coupon Applied",
+										"coupon": CouponCookie
+									},
+									"products": productListGTM
+									}
+								}
+							});
+							}else{
+								dataLayer.push({
+									"event": "EEcheckout",
+									"ecommerce": {
+										"checkout": {
+										"actionField": {
+											"step": 1,
+											"option": "No Coupon"
+										},
+										"products": productListGTM
+										}
+									}
+								});
+							}
+						}catch(e){}
+						}
+					});
+				}
+			});
+	
+			$('.ui-switch').on('change', function(){
+				ppToggle($(this));
+			});
+			$('.hg-call-mob').click(function(){
+				$('.hg-info-container').toggle();
+			});
+	
+	
+			//show signup form
+			$('.createAccLink').on('click', function(){
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signup-CreateAcc-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signup-Tracking');
+				}catch(e){}
+	
+				$(this).parents('.login-signup').addClass('signup');
+				return false;
+			});
+	
+			//show login form
+			$('.backtologin').on('click', function(){
+				$('.login-signup').removeClass('signup');
+				return false;
+			});
+	
+			//coupon
+		  /*  $('#applyCoupon').on('click', function(e){
+				if($(this).hasClass('remove')){
+					removeCoupon();
+					$('.fbConnect').fadeIn();
+				}else{
+					var domain = ($('input[name="product_name[]"]').val()).split('_');
+					domain = domain[0];
+					if($('#input_coupon_code').val() != ""){
+						applyCouponCode(domain);
+					}else{
+						showError("Please enter a valid coupon code");
+					}
+				}
+				return false;
+			});*/
+	
+			//
+	
+			$("#applyCoupon").click(function() {
+				if($(this).hasClass('remove')){
+					removeCoupon();
+					$('.fbConnect').fadeIn();
+				}else{
+					var couponCode = $("input[name='coupon_code']").val();
+					if(couponCode != "") {
+						makeCouponCall(couponCode);
+					}                
+					else{
+						showError("Please enter a valid coupon code");
+					}
+				}
+				return false;
+	
+			});
+			$('#existing_submit').on('click', function(e){
+				if($(this).hasClass('continue')){
+					e.preventDefault();
+					continue_to_payment().show_next();
+					$(document).scrollTop(180);
+					return false;
+				}
+			});
+	
+			//not set user link action
+			$('.notuserlink').on('click', function(){
+				$('.login-signup').removeClass('userSet loggedin air');
+				Cookies.erase('addn_info_req');
+				$('#existing_submit').removeClass('continue');
+				$("#signupWrp").show();
+				return false;
+			});
+	
+	
+			//forgot password
+			$('#forgotpassword').on('click', function(){
+				var host = window.location.host;
+				var proto = window.location.protocol;
+				window.location.href = proto + "//" + host + '/login.php?action=forgotpass#forgotpass'
+			});
+	
+			$('.addon-popup').click(function(){
+				//var tldName = $(this).parents('.CartItemRow').children('.pName').find('input[name="product_name[]"]').val().split("_")[0];
+				//$('#addon-tld').html(tldName);
+				//showModal('modal_free_addons');
+				$('#modal_free_addons').modal('show');
+			});
+	
+	
+			// ga tracking
+	
+			$('#applyCoupon').on('click', function(){
+				try{
+					ga('send', 'event', 'coupon', 'apply');
+				}catch(e){}
+			});
+	
+			$('#fbButton').on('click', function(){
+				try{
+					ga('send', 'pageview', 'login/facebook');
+				}catch (e){}
+			});
+	
+	
+			$('#followBigRock').on('click', function(){
+				try{
+					ga('send', 'pageview', 'login/twitter');
+				}catch (e){}
+			});
+	
+			var breakDown = '992';
+	
+			$('body').on('click', '.change-tenure', function(){
+				if ($(window).width() <= breakDown) {
+					var elem = $(this).parents('.CartItemRow').find('.select-tenure-wrap');
+					if (elem.is(':visible')) {
+						elem.slideUp().removeClass('open');
+						$(this).text('Change Tenure');
+					} else {
+						var slideLeftPos = elem.find('.xs-tenure.selected').index();
+						if(slideLeftPos > 2){
+							slideLeftPos = "-" + (slideLeftPos * 120) + "px";
+							elem.find('.swiper-wrapper').css("transform", "translate3d(" + slideLeftPos + ", 0px, 0px)");
+						}
+						elem.slideDown().addClass('open');
+						$(this).text('Cancel');
+					}
+					return false;
+				}
+			});
+	
+		/*    $(window, 'ul#payment_options_online li.paymentOption').on('click', function(e){
+				if ($(window).width() <= breakDown) {
+					$(e.target).parents('li').addClass('clicked');
+					$('#agreement').prop('checked', true);
+					$("input[name='select_gateway_id']").on('change', function(){
+						$("input[name='gateway_id']").val($(this).val());
+						$('li', $(this).parents('ul:eq(0)')).removeClass('selected');
+						$(this).parents('li:eq(0)').toggleClass('selected');
+					}, function(){
+						$('#pay_now').click();
+					});
+				}
+			});*/
+	
+			$(window).resize(function() {
+				if ($(window).width() <= breakDown){
+					$(".CartItemRow").each(function() {
+						if($(this).find('.update_item_class').is(':visible')) {
+							$(this).find(".update_item_class, .cancel-change-tenure").show();
+							//$(this).find(".pName, .pDescription, .pPrice").hide();
+						}
+						else{
+							$(this).find('.update_item_class, .cancel-change-tenure').hide();
+							$(this).find('.change-tenure, .pName, .pDescription, .pPrice').show();
+						}
+					});
+				}
+				else{
+					$(".pName, .pDescription, .pPrice, .update_item_class").show();
+					$('.change-tenure, .cancel-change-tenure').hide();
+				}
+			});
+	
+			$('.row.productBlock').each(function(){
+				var productType = $(this).attr('id').split("_")[1];
+				var elem = $(this).find('.update_item_class option'),
+				domaineName = $(this).attr('id').split("_")[1],
+	
+				temp = "";
+				$(elem).each(function(e){
+					var months = $(this).attr('value').split("_")[0],
+						price = $(this).attr('value').split("_")[1],
+						tenure = months + " month",
+						/*period = "/yr",*/
+						selected = "";
+	
+					if(domaineName === 'domain'){
+						tenure = months + " year",
+						temp += '<div class="xs-tenure swiper-slide ' + selected + '"' + 'data-value="' + $(this).attr('value') + '"><span>' + tenure + '</span> at Rs.' + price + '/yr</div>';
+					} else {
+						if(months > 12){
+							tenure = months/12 + " year"
+						}
+						if(months == 12){
+							tenure = 1 + " year"
+						}
+						temp += '<div class="xs-tenure swiper-slide ' + selected + '"' + 'data-value="' + $(this).attr('value') + '"><span>' + tenure + '</span> at Rs.' + price + '/mo</div>';
+					}
+	
+					if(($(this).attr("selected")) !== undefined){
+						selected = "selected"
+					}
+					
+				});
+				$(this).find('.xs-tenure-wrap').html(temp);
+				var swiper = new Swiper($(this).find('.swiper-container'), {
+					freeMode: true,
+					width: 120
+				});
+				var slideLeftPos = $(this).find('.xs-tenure.selected').index();
+				if(slideLeftPos > 2){
+					slideLeftPos = "-" + (slideLeftPos * 120) + "px";
+					$(this).find('.swiper-wrapper').css("transform", "translate3d(" + slideLeftPos + ", 0px, 0px)");
+				}
+	
+				if(productType == 'domain'){
+					var ppStatus = $(this).find('.domain_pp_status').text().trim();
+					if(ppStatus == 'true'){
+						$(this).find('.pPrice .pp_price').show();
+						$(this).find(".ui-switch.enabled-radio").prop("checked", true)
+					}
+					else{
+						$(this).find('.pPrice .pp_price').hide();
+						$(this).find(".ui-switch.disabled-radio").prop("checked", true)
+					}
+				}
+			});
+	
+	
+	
+			$(".xs-tenure").click(function () {
+				obj_link = $(this);
+				obj_link.parent().find(".xs-tenure").removeClass('selected');
+				obj_link.addClass('selected');
+				obj_link.parents('.CartItemRow').find('.pDuration').parent('div').siblings('.col-md-5').children().children('.pos_hlp.itemblock').addClass('loading');
+				var tenureId =  $(this).data('value');
+				$(this).parents('.CartItemRow').find('.update_item_class option').removeAttr('selected');
+				/*$(this).parents('.CartItemRow').find('.update_item_class').find(tenureId).attr('selected', 'selected');*/
+				$(this).parents('.CartItemRow').find('.update_item_class').val(tenureId);
+				setTimeout(function () {
+					updateTenure((obj_link))
+				}, 500);
+				return false;
+			}); //remove_item_class
+	
+			//Start: 3 month tenure promo
+	
+			$('.CartItemRow').each(function() {
+				var $this = $(this),
+					productTenure = $this.find('.update_item_class option:selected').val();
+					if (productTenure) {
+						productTenure = productTenure.split("_")[0];
+					}
+					productName = $this.attr('id').split('_')[1],
+					blurb = $(this).find('.offer-blurb'),
+					extraMonth = blurb.find('.extra-months'),
+					priceMonth = blurb.find('.price-months');
+					$this.addClass(productName);
+
+				//Shared discount
+                if (productName == "linux" || productName == "multidomainhosting") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('3 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 15% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 20% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 12) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('2 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 24) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('3 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 36) {
+                        extraMonth.text('Save 50% on');
+                        priceMonth.text('5 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(6).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                } else if (productName == "w2k" || productName == "multidomainwindowshosting") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('3 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 20% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 12) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('2 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 24) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('3 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 36) {
+                        extraMonth.text('Save 50% on');
+                        priceMonth.text('5 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(6).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                } else if (productName == "cloudsiteslinuxus" || productName == "cloudsiteslinuxin" || productName == "resellerhosting") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('3 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 20% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 12) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('2 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 24) {
+                        extraMonth.text('Save 40% on');
+                        priceMonth.text('3 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                } else if (productName == "virtualserverlinuxin" || productName == "virtualserverlinuxus") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 12) {
+                        extraMonth.text('Save 20% on');
+                        priceMonth.text('2 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 24) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('3 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                } else if (productName == "dedicatedservers") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('3 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 15% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                } else if (productName == "wordpresshostingusa" || productName == "wordpresshostingindia") {
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    $('.hide-shared').hide();
+                    if (productTenure == 1) {
+                        extraMonth.text('Save 5% on');
+                        priceMonth.text('3 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 3) {
+                        extraMonth.text('Save 10% on');
+                        priceMonth.text('6 months purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 6) {
+                        extraMonth.text('Save 20% on');
+                        priceMonth.text('1 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 12) {
+                        extraMonth.text('Save 30% on');
+                        priceMonth.text('2 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                    else if (productTenure == 24) {
+                        extraMonth.text('Save 50% on');
+                        priceMonth.text('3 year purchase!');                        
+                        blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                        setTimeout(function () {
+                            blurb.slideDown();
+                        }, 2000);
+                    }
+                }
+
+
+	
+				//show hide pp on basis of pp_status
+				var domainPP = $(this).attr('id');
+				var domain_pp_statusVal = domainPP.replace(/\./g, '\.').replace('_domain', '').replace('.', '\\.').trim()+"_pp_status";
+					if($("#"+domain_pp_statusVal).html() == 'true')
+					{
+						$('.pp_description.pp', $(this)).show();
+					}
+					else
+					{
+						$('.pp_description.pp', $(this)).hide();
+						/*$('.itemblock.pp.privacy-protect', $(this)).hide();*/ //disable pp for .bharat domain
+					}
+
+				//.NET offer
+				if (productName == "linux" ||  productName == "w2k" || productName == "multidomainhosting" || productName == "multidomainwindowshosting" || productName == "resellerhosting" || productName == "virtualserverlinuxus" || productName == "cloudsiteslinuxus" || productName == "cloudsiteslinuxin" || productName == "virtualserverlinuxin" || productName == "dedicatedservers" || productName == "dedicatedserverswindows" || productName == "resellerwindowshosting") {
+
+					if($(this).attr('id').indexOf('.net_') > -1){ 
+						var netplan = $(this).find('.hg-item-name').text();
+						var netDomain = $.escapeSelector($(this).find('.domain-des strong').text());
+
+						$("#"+ netDomain +"_domain").append('<div class="col-sm-9 col-xs-12 net-txt" style=" color: #4480c5; font-size: 14px; background-color: #ecf1f6; padding: 10px; margin-left:45px; margin-bottom: 15px;"><div class="sd" style="color:#FF6B17;"><img src="/ui/resellerdata/120000_149999/147142/supersite2/hostgator/themes/MinimalGreen-MyTheme/images/myUploadedImages/cart_net.png" style="margin-bottom:5px;"></div><div>This domain is free with your order:</div><div class="" style="color:#4a4a4a;">' + netplan + '</div></div>');
+
+						//$("#"+ netDomain +"_pp_status_enabled-radio").prop( "checked", false );
+						//ppToggle1($("#"+ netDomain +"_pp_status_enabled-radio"));
+						
+						//applyCouponCode();
+						//alert("hi");
+						//console.log(netplan);     
+					                
+					}
+				}
+                
+			});
+			
+			//Shared discount
+            $('.CartItemRow.linux .update_item_class, .CartItemRow.multidomainhosting .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('3 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 15% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 20% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 12) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('2 year purchase!');                   
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 24) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('3 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 36) {
+                    extraMonth.text('Save 50% on');
+                    priceMonth.text('5 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(6).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+            //Windows Shared
+            $('.CartItemRow.w2k .update_item_class, .CartItemRow.multidomainwindowshosting .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 5% on');
+                    priceMonth.text('3 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 20% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 12) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('2 year purchase!');                   
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 24) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('3 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 36) {
+                    extraMonth.text('Save 50% on');
+                    priceMonth.text('5 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(6).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+
+            //clous/ Reseller hosting
+            $('.CartItemRow.cloudsiteslinuxus .update_item_class, .CartItemRow.cloudsiteslinuxin .update_item_class, .CartItemRow.resellerhosting .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 5% on');
+                    priceMonth.text('3 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 20% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 12) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('2 year purchase!');                   
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 24) {
+                    extraMonth.text('Save 40% on');
+                    priceMonth.text('3 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+			
+			 //VPS hosting
+            $('.CartItemRow.virtualserverlinuxin .update_item_class, .CartItemRow.virtualserverlinuxus .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 5% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 6% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 12) {
+                    extraMonth.text('Save 20% on');
+                    priceMonth.text('2 year purchase!');                   
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 24) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('3 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+            // Linux Dedicated
+            $('.CartItemRow.dedicatedservers .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 5% on');
+                    priceMonth.text('3 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 15% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+            //WordPress hosting
+            $('.CartItemRow.wordpresshostingusa .update_item_class, .CartItemRow.wordpresshostingindia .update_item_class').change(function(){
+                var blurb = $(this).parents(".CartItemRow").find('.offer-blurb'),
+                    selectedTenure = $(this).val().split("_")[0],
+                    productName = $(this).parents(".CartItemRow").attr('id').split('_')[1],
+                    extraMonth = blurb.find('.extra-months'),
+                    priceMonth = blurb.find('.price-months'),               
+                    $this = $(this).parents(".CartItemRow");
+                    $('.hide-shared').hide();
+    
+                if(selectedTenure == 1) {
+                    extraMonth.text('Save 5% on');
+                    priceMonth.text('3 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(1).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 3) {
+                    extraMonth.text('Save 10% on');
+                    priceMonth.text('6 months purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(2).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 6) {
+                    extraMonth.text('Save 20% on');
+                    priceMonth.text('1 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(3).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 12) {
+                    extraMonth.text('Save 30% on');
+                    priceMonth.text('2 year purchase!');                   
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(4).val());
+                    blurb.slideDown();
+                }
+                else if(selectedTenure == 24) {
+                    extraMonth.text('Save 50% on');
+                    priceMonth.text('3 year purchase!');                    
+                    blurb.find('.btn-primary').attr("data-value", $this.find('.update_item_class option').eq(5).val());
+                    blurb.slideDown();
+                }
+                else{
+                    blurb.slideUp();
+                }
+            });
+	
+			$('.CartItemRow .offer-blurb .btn-primary').on('click', function () {
+				obj_link = $(this);
+				//var id = $(this).parents().data('id');
+				//var id = obj_link.parents().data('id')
+				var id = $(this).parents(".offer-blurb").data('id');
+				var tenure = $(this).attr('data-value').split("_")[0];
+	
+				var selectedTenure = $(this).parents('.CartItemRow').find('.update_item_class').val().split('_')[0];
+
+				if (productName == "linux" || productName == "multidomainhosting" || productName == "w2k" || productName == "multidomainwindowshosting" || productName == "resellerhosting" || productName == "cloudsiteslinuxus" || productName == "cloudsiteslinuxin" || productName == "virtualserverlinuxin" || productName == "virtualserverlinuxus" || productName == "dedicatedservers" || productName == "wordpresshostingusa" || productName == "wordpresshostingindia") {
+                    $('#input_coupon_code').val('UPGRADE');
+                }
+
+				obj_link.parents('.CartItemRow').find('.pDuration').parent('div').siblings('.col-md-5').children().children('.pos_hlp.itemblock').addClass('loading');
+				$(this).parents('.CartItemRow').find('.update_item_class option').removeAttr('selected');
+				$(this).parents('.CartItemRow').find('.xs-tenure').removeClass('selected');
+				
+
+				//
+				if (productName == "linux" || productName == "multidomainhosting" || productName == "w2k" || productName == "multidomainwindowshosting" || productName == "resellerhosting" || productName == "cloudsiteslinuxus" || productName == "cloudsiteslinuxin" || productName == "dedicatedservers" || productName == "wordpresshostingusa" || productName == "wordpresshostingindia") {
+                    if(selectedTenure == 1){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(1).attr('selected', 'selected');
+						var y = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(1).val();
+					   
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y);		
+						
+					}
+					else if(selectedTenure == 3){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).attr('selected', 'selected');
+		
+						var x = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(x);		
+						
+					}
+					else if(selectedTenure == 6){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(3).attr('selected', 'selected');
+
+						var x1 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(3).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(x1);
+						
+					}
+					else if(selectedTenure == 12){
+	                    $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(4).attr('selected', 'selected');
+
+	                    var x2 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(4).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(x2);
+	                    
+	                }
+	                else if(selectedTenure == 24){
+	                    $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(5).attr('selected', 'selected');
+
+	                    var x3 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(5).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(x3);
+	                    
+	                }
+	                else if(selectedTenure == 36){
+	                    $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(6).attr('selected', 'selected');
+
+	                    var x4 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(6).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(x4);
+	                   
+	                }
+                } else if (productName == "virtualserverlinuxin" || productName == "virtualserverlinuxus") {
+                    if(selectedTenure == 1){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).attr('selected', 'selected');
+						var y1 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).val();
+					   
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y1);		
+						
+					}
+					else if(selectedTenure == 3){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).attr('selected', 'selected');
+		
+						var y2 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(2).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y2);		
+						
+					}
+					else if(selectedTenure == 6){
+						$(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(3).attr('selected', 'selected');
+
+						var y3 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(3).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y3);
+						
+					}
+					else if(selectedTenure == 12){
+	                    $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(4).attr('selected', 'selected');
+
+	                    var y4 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(4).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y4);
+	                   
+	                }
+	                else if(selectedTenure == 24){
+	                    $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(5).attr('selected', 'selected');
+
+	                    var y5 = $(this).parents('.CartItemRow').find('.update_item_class').find('option').eq(5).val();
+					
+						$(this).parents('.CartItemRow').find('.update_item_class').val(y5);
+	                    
+	                }
+                }
+				
+				setTimeout(function () {
+					updateTenureUpsellOffer((obj_link), id, tenure);
+				}, 500);
+				//$(this).parent().slideUp();
+				$(this).parents(".CartItemRow").find('.offer-blurb').slideUp();
+				return false;
+			});
+	
+			$('.CartItemRow .offer-blurb span').click(function(){
+				$(this).parent().slideUp();
+				return false;
+			});
+	
+			//End: 3 month tenure promo
+	
+	
+			//Start:Event Tracking Code
+	
+			$('#summary-btn').click(function(){
+				try{
+					ga('send', 'pageview', 'checkout-summary');
+				}catch(e){ }
+				try{
+					ga('send', 'event', 'HGI-Checkout-OrderContinue-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signup-Tracking');
+				}catch(e){}
+			});
+	
+			$('#existing_submit').click(function(){
+				try{
+					ga('send', 'pageview', 'login/existing-user');
+				}catch(e){ }
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signin-Login-Direct-Button-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signin-Tracking');
+				}catch(e){}
+			});
+	
+			$('#register_submit_id').click(function(){
+				try{
+					ga('send', 'pageview', 'login/new-user');
+				}catch(e){ }
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signup-Create-Acc-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signup-Tracking');
+				}catch(e){}
+			});
+	
+			$('#pay_now').click(function(){
+				try{
+					ga('send', 'pageview', 'pay-now');
+				}catch(e){ }
+			});
+			$('.loginWrp .social-btn-form1').click(function(){
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signin-Login-Google-Button-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signin-Tracking');
+				}catch(e){}
+			});
+			$('.loginWrp .social-btn-form2').click(function(){
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signin-Login-FB-Button-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signin-Tracking');
+				}catch(e){}
+			});
+			$('.createAccWrp .social-btn-form1').click(function(){
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signup-CreateAccountGoogle-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signup-Tracking');
+				}catch(e){}
+			});
+			$('.createAccWrp .social-btn-form2').click(function(){
+				try{
+					ga('send', 'event', 'HGI-Checkout-Signup-CreateAccountFB-Click', 'HGI-Checkout-Tracking', 'HGI-Checkout-Signup-Tracking');
+				}catch(e){}
+			});
+			//End:Event Tracking Code
+	
+		});
+		
+
+		function updateTenure(obj_link) {
+			$.ajaxQueue({
+				type: "POST",
+				url: "/checkout.php",
+				data: "action=update&key=" + obj_link.parents().data('id') + "&years=" + obj_link.data('value').split("_")[0],
+				dataType: 'json',
+				success: function (msg) {
+					if (msg.status == 'success') {
+						$("#total").html(msg.total);
+						$("#taxTotalAmount").html(msg.tax_amount);
+						$('#totalpayable').html(format_currency(parseFloat(get_unformatted_price($('#total').html())) + parseFloat(get_unformatted_price($("#taxTotalAmount").html()))));
+						set_total();
+						obj_link.closest('tr').find(".addon_price").html(msg.addon_price);
+	
+						$('.addons-price').each(function () {
+							var current_addon_name = $(this).attr('data-value').toLowerCase();
+							var current_addon_value = parseFloat(get_unformatted_price($(this).html()));
+							var current_duration = obj_link.val().split("_")[0];
+							obj_link.closest('tr').find('.' + current_addon_name + ' span:not(.WebRupee)').html(format_currency(current_addon_value * current_duration));
+						});
+	
+						if (msg.payment_option_html != 'not_logged_in') {
+							$('#customer_details').html(msg.payment_option_html);
+						}
+						applyCouponCode(obj_link.parent().data('id').split("_")[0]);
+					}
+				},
+				complete: function () {
+					//obj_link.parents('.pDuration').siblings('.pPrice').children('.pos_hlp.itemblock').removeClass('loading');
+					obj_link.parents('.CartItemRow').find('.pDuration').parent('div').siblings('.col-md-5').children().children('.pos_hlp.itemblock').removeClass('loading');
+					obj_link.parents('.select-tenure-wrap').slideUp();
+					obj_link.parents('.CartItemRow').find('.change-tenure').text('Change Tenure');
+				}
+			});
+		}
+		
+		function updateTenureUpsellOffer(obj_link, id, tenure) {
+			$.ajaxQueue({
+				type: "POST",
+				url: "/checkout.php",
+				data: "action=update&key=" + id + "&years=" + tenure,
+				dataType: 'json',
+				success: function (msg) {
+					if (msg.status == 'success') {
+						$("#total").html(msg.total);
+						$("#taxTotalAmount").html(msg.tax_amount);
+						$('#totalpayable').html(format_currency(parseFloat(get_unformatted_price($('#total').html())) + parseFloat(get_unformatted_price($("#taxTotalAmount").html()))));
+						set_total();
+						obj_link.closest('tr').find(".addon_price").html(msg.addon_price);
+	
+						$('.addons-price').each(function () {
+							var current_addon_name = $(this).attr('data-value').toLowerCase();
+							var current_addon_value = parseFloat(get_unformatted_price($(this).html()));
+							var current_duration = obj_link.val().split("_")[0];
+							obj_link.closest('tr').find('.' + current_addon_name + ' span:not(.WebRupee)').html(format_currency(current_addon_value * current_duration));
+						});
+	
+						if (msg.payment_option_html != 'not_logged_in') {
+							$('#customer_details').html(msg.payment_option_html);
+						}
+						//applyCouponCode(obj_link.parent().data('id').split("_")[0]);
+						//applyCouponCode(obj_link.parents().data('id').split("_")[0]);
+						applyCouponCode(obj_link.parents(".offer-blurb").data('id').split("_")[0]);
+					}
+				},
+				complete: function () {
+					//obj_link.parents('.pDuration').siblings('.pPrice').children('.pos_hlp.itemblock').removeClass('loading');
+					obj_link.parents('.CartItemRow').find('.pDuration').parent('div').siblings('.col-md-5').children().children('.pos_hlp.itemblock').removeClass('loading');
+					obj_link.parents('.select-tenure-wrap').slideUp();
+					obj_link.parents('.CartItemRow').find('.change-tenure').text('Change Tenure');
+				}
+			});
+		}
+		
+		function check_for_customer_tos(email) {
+			if(email == undefined || email == "") {
+				email = $('.login-signup.loggedin span.useremail').text();
+			}
+			$.ajax({
+				url: '/login.php?action=check_for_customer_tos&email_address='+ email,
+				dataType: 'json',
+				type: 'GET',
+				success: function(data) {
+					if(data['get_confirmation'] !== 'yes') {
+						//$('#agreement_tos').hide();
+						console.log('success');
+	
+						var hgPayU = $("label[for=input_70521]").text();
+						var ccavanue = $("label[for=input_69266]").text();
+						if (hgPayU.indexOf("PayU") >= 0 && ccavanue.indexOf("CCAvenue") >= 0) {
+						 
+							hgPayU = hgPayU.replace("NetBanking/Debit Card/Credit Card (PayU)", "NetBanking/Debit Card/Credit Card");
+							$("label[for=input_70521]").html('<span class="hg-type" style="display:block">PayU</span>' +hgPayU);
+							$("label[for=input_70521]").css({"font-size": "16px", "font-weight": "400", "margin-top": "1%"});
+				 
+							ccavanue = ccavanue.replace("Netbanking/Debit Card/Credit Card (CCAvenue)", "Netbanking/Debit Card/Credit Card");
+							$("label[for=input_69266]").html('<span class="hg-type" style="display:block">CCAvenue</span>'+ ccavanue);
+							$("label[for=input_69266]").css({"font-size": "16px", "font-weight": "400", "margin-top": "1%"});
+						}
+						else {
+							console.log("usernotloggedin")
+						}
+					}
+				},
+				error: function() {
+					console.log('failed');
+				}
+			});
+		}
+	
+		function store_customer_tos() {
+			$.ajax({
+				url: "/login.php?action=store_customer_tos",
+				dataType: 'json',
+				method: 'GET',
+				success: function(data){
+					if(data['status'] !== 'success') {
+						return false;
+					}
+				}
+			});
+		}
+		$('.CartItemRow').each(function(){
+			if(typeof $(this).find('.hosting-addons').html() != 'undefined') {
+				var hosting_addons_status = $(this).find('.hosting-addons').html().trim();
+				if (hosting_addons_status != "") {
+					$(this).addClass('hasAddons');
+				}
+			}
+			if($(this).find(".pName .name ").children('br').length) {
+				$($(this).find(".pName .name ").children('br').get(0).nextSibling).wrap('<div class="punyname" style="display: none" />');
+			}
+		});
+		//gatorcash in wallet amount is 0
+		var walletbalance = '<#tag:available_balance /#>';
+		if(walletbalance == 0) {
+			$('.hg-amount-to-have').hide();
+		}
+		var currsym = '<#tag:curr_sym /#>';
+		
+	/*    $( window ).load(function() {
+		  $('.hg-amount-to-have').hide();
+		});
+		*/
+		$('.cartItemsWrp .row.productBlock.CartItemRow.others').each(function(){
+			var str = $(this).find('.hg-item-name').text().replace("(India)","");
+			$(this).find('.hg-item-name').text(str);
+		});
+	
+		 $(function () {
+			$('[data-toggle="popover"]').popover({html: true, container: 'body', placement: 'right', trigger: 'hover'});
+		});
+
+		 //.NET offer
+		function ppToggle1($elem)
+		{
+		    var domain = $elem.attr('name');
+		    var ppStatus = $elem.is(":checked") ? "true" : "false";
+		    var currentTr = $elem.parents('.CartItemRow');
+		    var escaped_domain_name = domain.replace(/\./g, '\\.');
+		    var domain_name_pp_status = escaped_domain_name + "_pp_status";
+		    var currentVal = $("#" + domain_name_pp_status).text().trim();
+		    $("#" + domain_name_pp_status).text(!(currentVal === "true"));
+
+		    if (ppStatus == "false" ) {
+		        currentTr.find('.ppTxtWrp .status').removeClass('green').text('Disabled');
+		        currentTr.find('.pPrice .pp_price').fadeOut();
+		        $elem.attr('data-exit', 'disabled');
+		        try{
+		            ga('send', 'event', 'Cart', 'Removed Privacy Protect');
+		        }catch(e){}
+		    } else {
+		        currentTr.find('.ppTxtWrp .status').addClass('green').text('Enabled');
+		        currentTr.find('.pPrice .pp_price').fadeIn();
+		        $elem.attr('data-exit', 'enabled');
+		        try{
+		            ga('send', 'event', 'Cart', 'Selected Privacy Protect');
+		        }catch(e){}
+		    }
+
+		    x = currentTr;
+
+		    //$("#" + domain_name_pp_status).html("false");
+		    $.ajaxQueue({
+		        url: '/checkout.php',
+		        type: 'post',
+		        dataType: 'json',
+		        data: {'action': 'update_privacy_protection', 'domain_name': domain + "_domain", 'privacy_protection_status': ppStatus},
+		        success: function (msg) {
+		            $("#items_count").html(msg.items);
+		            $("#total").html(msg.total);
+		            $("#taxTotalAmount").html(msg.tax_amount);
+		            $("#totalpayable").html(msg.total_with_tax);
+		            set_total();
+		            $('#totalpayable').html(format_currency(parseFloat(get_unformatted_price($('#total').html())) + parseFloat(get_unformatted_price($("#taxTotalAmount").html()))));
+		            
+		        }
+		    });
+		}
+
+	</script>
