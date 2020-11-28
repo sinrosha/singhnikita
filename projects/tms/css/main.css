@@ -6,3 +6,67 @@
 #courses {
     padding-top: 0;
 }
+
+#login_popup {
+    width: 60%;
+    margin: 50px auto;
+    border-radius: 5px;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    margin-left: -30%;
+    z-index: 2;
+}
+
+#login_popup input {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#login_popup .closee {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.7;
+    background: #000;
+    z-index: 1;
+}
+
+.register {
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.register-success {
+    font-size: 20px;
+    color: #fff;
+    display: none;
+}
+
+#error {
+    display: none;
+}
+
+#error ul {
+    width: 50%;
+    margin: 0 auto;
+    color: red;
+    list-style: none;
+    padding: 0;
+}
+
+.register-success a {
+    color: #000;
+}
