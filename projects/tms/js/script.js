@@ -1,4 +1,12 @@
 $(document).ready(function() {
+
+    var studentEntries = JSON.parse(localStorage.getItem("students")) || [];
+
+    studentEntries.forEach(element => {
+        $("#student-list").append("<li class='student'><h4 class='name' style='margin-top:0'>Name: " + element.name + "</h4><h4 class='email'>Email: " +  element.email + "</h4><h4 class='subject'>Class: " + element.subject + "</h4><h4 class='password' style='margin:0'> Password: " + element.password + "</h4></li>")
+    });
+
+
     $("#login_popup .closee").on("click", function() {
         $("#login_popup").hide();
         $(".overlay").hide();

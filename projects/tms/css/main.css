@@ -70,3 +70,15 @@
 .register-success a {
     color: #000;
 }
+
+#student-list {
+    padding: 0;
+    list-style: none;
+}
+
+#student-list .student {
+    margin-top: 30px;
+    padding: 30px 20px;
+    background: #f2eeee;
+    border-radius: 4px;
+}
