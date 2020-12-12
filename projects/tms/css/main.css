@@ -82,3 +82,11 @@
     background: #f2eeee;
     border-radius: 4px;
 }
+
+.sp-form-outer {
+    margin-bottom: 100px
+}
+
+.sp-link  {
+    display: none;
+}
