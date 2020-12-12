@@ -88,5 +88,5 @@
 }
 
 .sp-link  {
-    display: none;
+    display: none!important;
 }
