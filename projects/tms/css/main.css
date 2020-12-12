@@ -90,3 +90,14 @@
 .sp-link  {
     display: none!important;
 }
+
+#mc_embed_signup div#mce-responses {
+    margin: 0;
+    padding: 0;
+}
+
+#mc_embed_signup {
+    width: 50%;
+    margin:0 auto;
+    margin-bottom: 100px;
+}
